@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 
@@ -18,11 +20,9 @@ public class AccountDao {
 	private Logger log = Logger.getRootLogger();
 	
 	/*private Connection connection;
-
 	public Connection getConnection() {
 		return connection;
 	}
-
 	public void setConnection(Connection connection) {
 		this.connection = connection;
 	}*/
@@ -153,7 +153,7 @@ public class AccountDao {
 		 * @see Account
 		 */
 		
-		String sql = "insert into hotel.accounts set "
+		String sql = "insert into hotel.accounts "
 				+ "(user_name, pass_word, full_name, full_address, email, phone_number)"
 				+ "values (?, ?, ?, ?, ?, ?);";
 		
@@ -183,33 +183,6 @@ public class AccountDao {
 		
 	}
 	
-	public void updateAccountUsername(Account account, String oldUsername, String newUsername) {
-		
-		String sql = "update hotel.accounts set user_name = ? where user_name = ?";
-		
-		log.info("Attempting to update the account username in the database using a prepared statement");
-		
-		Connection connection = ConnectionFactoryPostgres.getConnection();
-		
-		PreparedStatement preparedStatement;
-		
-		try {
-			preparedStatement = connection.prepareStatement(sql);
-			preparedStatement.setString(1, newUsername);
-			preparedStatement.setString(2, oldUsername);
-			preparedStatement.execute();
-			
-			connection.close();
-			
-			log.info("Account successfully updated in the database using a prepared statement");
-		}
-		catch (SQLException e) {
-			log.error("Unable to update the account in the database using a prepared statement", e);
-			e.printStackTrace();
-		}
-		
-	}
-
 	public void updateAccount(Account account) {
 		/**
 		 * Connects to the Postgres database and updates the account.
@@ -225,8 +198,8 @@ public class AccountDao {
 				+ "full_name = ?, "
 				+ "full_address = ?, "
 				+ "email = ?, "
-				+ "phone_number = ?, "
-				+ "where user_name = ?";
+				+ "phone_number = ? "
+				+ "where account_id = ?;";
 		
 		log.info("Attempting to update the account in the database using a prepared statement");
 		
@@ -242,7 +215,8 @@ public class AccountDao {
 			preparedStatement.setString(4, account.getFullAddress());
 			preparedStatement.setString(5, account.getEmail());
 			preparedStatement.setString(6, account.getPhoneNumber());
-			preparedStatement.setString(7, account.getUsername());
+			preparedStatement.setInt(7, account.getAccountId());
+			System.out.println(account.getAccountId());
 			preparedStatement.execute();
 			
 			connection.close();
@@ -266,6 +240,7 @@ public class AccountDao {
 		 */
 		
 		// TODO don't let a user delete their account until they cancel all their reservations
+		// TODO OR make sure user knows if they delete account it will delete ALL their reservations
 		
 		log.trace("deleteAccount method in AccountDaoPostgres class");
 		log.info("Attempting to delete account");
@@ -292,31 +267,105 @@ public class AccountDao {
 	}
 	
 	public void viewAccountDetails(Account account) {
-		// TODO implement this method
+		/**
+		 * Prints the user's account details.
+		 * 
+		 * @param account	the account to print the details from
+		 * @see Account
+		 */
+		System.out.println("Account Details");
+		System.out.println();
+		System.out.println("Username: " + account.getUsername());
+		System.out.println("Password: " + account.getPassword());
+		System.out.println();
+		System.out.println("Name: " + account.getFullName());
+		System.out.println("Address: " + account.getFullAddress());
+		System.out.println("Email: " + account.getEmail());
+		System.out.println("Phone Number: " + account.getPhoneNumber());
+		System.out.println();
 	}
 	
 	public void viewReservations(Account account) {
 		// TODO implement this method
+		/**
+		 * Allows the user to view their existing hotel reservations.
+		 * 
+		 * @param account	The account the hotel reservations were made from.
+		 * @see Reservation
+		 */
+		System.out.println("Not yet implemented");
+		System.out.println();
 	}
 	
-	public void checkRoomAvailability() {
-		// TODO implement this method
-	}
-	
-	public void checkRoomPrices() {
-		// TODO implement this method
+	public Map<String, Integer> getRoomTypesAndPrices() {
+		// TODO comment
+		/**
+		 * 
+		 */
+		
+		log.trace("AccountDao.checkRoomPrices");
+		
+		Map<String, Integer> roomTypesAndPrices = new HashMap<String, Integer>();
+		
+		String sql = "select * from hotel.rooms;";
+		
+		PreparedStatement preparedStatement;
+		
+		Connection connection = ConnectionFactoryPostgres.getConnection();
+		
+		log.info("Attempting to retrieve room prices from the database");
+		
+		try {
+			preparedStatement = connection.prepareStatement(sql);
+			ResultSet rs = preparedStatement.executeQuery();
+			
+			while (rs.next()) {
+				roomTypesAndPrices.put(rs.getString("room_type"), rs.getInt("room_price"));
+			}
+			
+			connection.close();
+			log.info("Successfully retrieved the hotel room types and prices from the database");
+		}
+		catch (SQLException e) {
+			log.error("Unable to connect to the database to retrieve hotel room types and prices", e);
+			e.printStackTrace();
+		}
+		
+		return roomTypesAndPrices;
+		
 	}
 	
 	public void createReservation() {
 		// TODO implement this method
+		/**
+		 * 
+		 */
+		
 	}
 	
 	public void updateReservation() {
 		// TODO implement this method
+		/**
+		 * 
+		 */
+		
 	}
 	
 	public void deleteReservation() {
 		// TODO implement this method
+		/**
+		 * 
+		 */
+		
+	}
+	
+	public void deleteAllReservations() {
+		// TODO implement; if user deletes account but they still have reservations booked
+		/**
+		 * 
+		 */
+		
 	}
 	
 }
+

@@ -20889,3 +20889,912 @@ Log session start time Wed Mar 31 10:33:09 EDT 2021<br>
 <td title="root category">root</td>
 <td title="Message">project runs</td>
 </tr>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>HTML Layout Log</title>
+<style type="text/css">
+<!--
+body, table {font-family: arial,sans-serif; font-size: x-small;}
+th {background: #336699; color: #FFFFFF; text-align: left;}
+-->
+</style>
+</head>
+<body bgcolor="#FFFFFF" topmargin="6" leftmargin="6">
+<hr size="1" noshade>
+Log session start time Wed Mar 31 14:49:06 EDT 2021<br>
+<br>
+<table cellspacing="0" cellpadding="4" border="1" bordercolor="#224466" width="100%">
+<tr>
+<th>Time</th>
+<th>Thread</th>
+<th>Level</th>
+<th>Category</th>
+<th>Message</th>
+</tr>
+
+<tr>
+<td>0</td>
+<td title="main thread">main</td>
+<td title="Level">TRACE</td>
+<td title="root category">root</td>
+<td title="Message">project runs</td>
+</tr>
+
+<tr>
+<td>3823</td>
+<td title="main thread">main</td>
+<td title="Level">INFO</td>
+<td title="root category">root</td>
+<td title="Message">Attempting to retrieve an existing account from the database</td>
+</tr>
+
+<tr>
+<td>3897</td>
+<td title="main thread">main</td>
+<td title="Level">INFO</td>
+<td title="root category">root</td>
+<td title="Message">URL : jdbc:postgresql://null:5432/null?</td>
+</tr>
+
+<tr>
+<td>6262</td>
+<td title="main thread">main</td>
+<td title="Level"><font color="#993300"><strong>ERROR</strong></font></td>
+<td title="root category">root</td>
+<td title="Message">Failed to connect to DB</td>
+</tr>
+<tr><td bgcolor="#993300" style="color:White; font-size : xx-small;" colspan="6">org.postgresql.util.PSQLException: The connection attempt failed.
+<br>&nbsp;&nbsp;&nbsp;&nbsp;	at org.postgresql.core.v3.ConnectionFactoryImpl.openConnectionImpl(ConnectionFactoryImpl.java:315)
+<br>&nbsp;&nbsp;&nbsp;&nbsp;	at org.postgresql.core.ConnectionFactory.openConnection(ConnectionFactory.java:51)
+<br>&nbsp;&nbsp;&nbsp;&nbsp;	at org.postgresql.jdbc.PgConnection.&lt;init&gt;(PgConnection.java:223)
+<br>&nbsp;&nbsp;&nbsp;&nbsp;	at org.postgresql.Driver.makeConnection(Driver.java:465)
+<br>&nbsp;&nbsp;&nbsp;&nbsp;	at org.postgresql.Driver.connect(Driver.java:264)
+<br>&nbsp;&nbsp;&nbsp;&nbsp;	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:677)
+<br>&nbsp;&nbsp;&nbsp;&nbsp;	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:228)
+<br>&nbsp;&nbsp;&nbsp;&nbsp;	at com.hotel.util.ConnectionFactoryPostgres.createConnection(ConnectionFactoryPostgres.java:56)
+<br>&nbsp;&nbsp;&nbsp;&nbsp;	at com.hotel.util.ConnectionFactoryPostgres.getConnection(ConnectionFactoryPostgres.java:75)
+<br>&nbsp;&nbsp;&nbsp;&nbsp;	at com.hotel.dao.AccountDao.getAccountByUsernameAndPassword(AccountDao.java:92)
+<br>&nbsp;&nbsp;&nbsp;&nbsp;	at com.hotel.ui.LoginMenu.displayOptions(LoginMenu.java:49)
+<br>&nbsp;&nbsp;&nbsp;&nbsp;	at com.hotel.Driver.main(Driver.java:50)
+<br>&nbsp;&nbsp;&nbsp;&nbsp;Caused by: java.net.UnknownHostException: null
+<br>&nbsp;&nbsp;&nbsp;&nbsp;	at java.base/sun.nio.ch.NioSocketImpl.connect(NioSocketImpl.java:567)
+<br>&nbsp;&nbsp;&nbsp;&nbsp;	at java.base/java.net.SocksSocketImpl.connect(SocksSocketImpl.java:333)
+<br>&nbsp;&nbsp;&nbsp;&nbsp;	at java.base/java.net.Socket.connect(Socket.java:648)
+<br>&nbsp;&nbsp;&nbsp;&nbsp;	at org.postgresql.core.PGStream.createSocket(PGStream.java:231)
+<br>&nbsp;&nbsp;&nbsp;&nbsp;	at org.postgresql.core.PGStream.&lt;init&gt;(PGStream.java:95)
+<br>&nbsp;&nbsp;&nbsp;&nbsp;	at org.postgresql.core.v3.ConnectionFactoryImpl.tryConnect(ConnectionFactoryImpl.java:98)
+<br>&nbsp;&nbsp;&nbsp;&nbsp;	at org.postgresql.core.v3.ConnectionFactoryImpl.openConnectionImpl(ConnectionFactoryImpl.java:213)
+<br>&nbsp;&nbsp;&nbsp;&nbsp;	... 11 more
+</td></tr>
+
+<tr>
+<td>6269</td>
+<td title="main thread">main</td>
+<td title="Level">INFO</td>
+<td title="root category">root</td>
+<td title="Message">Successfully connected to the database</td>
+</tr>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>HTML Layout Log</title>
+<style type="text/css">
+<!--
+body, table {font-family: arial,sans-serif; font-size: x-small;}
+th {background: #336699; color: #FFFFFF; text-align: left;}
+-->
+</style>
+</head>
+<body bgcolor="#FFFFFF" topmargin="6" leftmargin="6">
+<hr size="1" noshade>
+Log session start time Wed Mar 31 14:52:13 EDT 2021<br>
+<br>
+<table cellspacing="0" cellpadding="4" border="1" bordercolor="#224466" width="100%">
+<tr>
+<th>Time</th>
+<th>Thread</th>
+<th>Level</th>
+<th>Category</th>
+<th>Message</th>
+</tr>
+
+<tr>
+<td>0</td>
+<td title="main thread">main</td>
+<td title="Level">TRACE</td>
+<td title="root category">root</td>
+<td title="Message">project runs</td>
+</tr>
+
+<tr>
+<td>3150</td>
+<td title="main thread">main</td>
+<td title="Level">INFO</td>
+<td title="root category">root</td>
+<td title="Message">Attempting to retrieve an existing account from the database</td>
+</tr>
+
+<tr>
+<td>3177</td>
+<td title="main thread">main</td>
+<td title="Level">INFO</td>
+<td title="root category">root</td>
+<td title="Message">URL : jdbc:postgresql://localhost:5432/hotel_database?</td>
+</tr>
+
+<tr>
+<td>3802</td>
+<td title="main thread">main</td>
+<td title="Level">INFO</td>
+<td title="root category">root</td>
+<td title="Message">Successfully connected to the database</td>
+</tr>
+
+<tr>
+<td>3836</td>
+<td title="main thread">main</td>
+<td title="Level">INFO</td>
+<td title="root category">root</td>
+<td title="Message">Account with matching username found in the database</td>
+</tr>
+
+<tr>
+<td>3836</td>
+<td title="main thread">main</td>
+<td title="Level">INFO</td>
+<td title="root category">root</td>
+<td title="Message">The given password matches the account's password</td>
+</tr>
+
+<tr>
+<td>7493</td>
+<td title="main thread">main</td>
+<td title="Level">TRACE</td>
+<td title="root category">root</td>
+<td title="Message">AccountDao.checkRoomPrices</td>
+</tr>
+
+<tr>
+<td>7493</td>
+<td title="main thread">main</td>
+<td title="Level">INFO</td>
+<td title="root category">root</td>
+<td title="Message">URL : jdbc:postgresql://localhost:5432/hotel_database?</td>
+</tr>
+
+<tr>
+<td>7652</td>
+<td title="main thread">main</td>
+<td title="Level">INFO</td>
+<td title="root category">root</td>
+<td title="Message">Attempting to retrieve room prices from the database</td>
+</tr>
+
+<tr>
+<td>7703</td>
+<td title="main thread">main</td>
+<td title="Level">INFO</td>
+<td title="root category">root</td>
+<td title="Message">Successfully retrieved the hotel room types and prices from the database</td>
+</tr>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>HTML Layout Log</title>
+<style type="text/css">
+<!--
+body, table {font-family: arial,sans-serif; font-size: x-small;}
+th {background: #336699; color: #FFFFFF; text-align: left;}
+-->
+</style>
+</head>
+<body bgcolor="#FFFFFF" topmargin="6" leftmargin="6">
+<hr size="1" noshade>
+Log session start time Wed Mar 31 15:05:33 EDT 2021<br>
+<br>
+<table cellspacing="0" cellpadding="4" border="1" bordercolor="#224466" width="100%">
+<tr>
+<th>Time</th>
+<th>Thread</th>
+<th>Level</th>
+<th>Category</th>
+<th>Message</th>
+</tr>
+
+<tr>
+<td>0</td>
+<td title="main thread">main</td>
+<td title="Level">TRACE</td>
+<td title="root category">root</td>
+<td title="Message">project runs</td>
+</tr>
+
+<tr>
+<td>3497</td>
+<td title="main thread">main</td>
+<td title="Level">INFO</td>
+<td title="root category">root</td>
+<td title="Message">Attempting to retrieve an existing account from the database</td>
+</tr>
+
+<tr>
+<td>3525</td>
+<td title="main thread">main</td>
+<td title="Level">INFO</td>
+<td title="root category">root</td>
+<td title="Message">URL : jdbc:postgresql://localhost:5432/hotel_database?</td>
+</tr>
+
+<tr>
+<td>4095</td>
+<td title="main thread">main</td>
+<td title="Level">INFO</td>
+<td title="root category">root</td>
+<td title="Message">Successfully connected to the database</td>
+</tr>
+
+<tr>
+<td>4118</td>
+<td title="main thread">main</td>
+<td title="Level">INFO</td>
+<td title="root category">root</td>
+<td title="Message">Account with matching username found in the database</td>
+</tr>
+
+<tr>
+<td>4118</td>
+<td title="main thread">main</td>
+<td title="Level">INFO</td>
+<td title="root category">root</td>
+<td title="Message">The given password matches the account's password</td>
+</tr>
+
+<tr>
+<td>8873</td>
+<td title="main thread">main</td>
+<td title="Level">TRACE</td>
+<td title="root category">root</td>
+<td title="Message">AccountDao.checkRoomPrices</td>
+</tr>
+
+<tr>
+<td>8874</td>
+<td title="main thread">main</td>
+<td title="Level">INFO</td>
+<td title="root category">root</td>
+<td title="Message">URL : jdbc:postgresql://localhost:5432/hotel_database?</td>
+</tr>
+
+<tr>
+<td>8931</td>
+<td title="main thread">main</td>
+<td title="Level">INFO</td>
+<td title="root category">root</td>
+<td title="Message">Attempting to retrieve room prices from the database</td>
+</tr>
+
+<tr>
+<td>8939</td>
+<td title="main thread">main</td>
+<td title="Level">INFO</td>
+<td title="root category">root</td>
+<td title="Message">Successfully retrieved the hotel room types and prices from the database</td>
+</tr>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>HTML Layout Log</title>
+<style type="text/css">
+<!--
+body, table {font-family: arial,sans-serif; font-size: x-small;}
+th {background: #336699; color: #FFFFFF; text-align: left;}
+-->
+</style>
+</head>
+<body bgcolor="#FFFFFF" topmargin="6" leftmargin="6">
+<hr size="1" noshade>
+Log session start time Wed Mar 31 15:06:02 EDT 2021<br>
+<br>
+<table cellspacing="0" cellpadding="4" border="1" bordercolor="#224466" width="100%">
+<tr>
+<th>Time</th>
+<th>Thread</th>
+<th>Level</th>
+<th>Category</th>
+<th>Message</th>
+</tr>
+
+<tr>
+<td>0</td>
+<td title="main thread">main</td>
+<td title="Level">TRACE</td>
+<td title="root category">root</td>
+<td title="Message">project runs</td>
+</tr>
+
+<tr>
+<td>3446</td>
+<td title="main thread">main</td>
+<td title="Level">INFO</td>
+<td title="root category">root</td>
+<td title="Message">Attempting to retrieve an existing account from the database</td>
+</tr>
+
+<tr>
+<td>3474</td>
+<td title="main thread">main</td>
+<td title="Level">INFO</td>
+<td title="root category">root</td>
+<td title="Message">URL : jdbc:postgresql://localhost:5432/hotel_database?</td>
+</tr>
+
+<tr>
+<td>3915</td>
+<td title="main thread">main</td>
+<td title="Level">INFO</td>
+<td title="root category">root</td>
+<td title="Message">Successfully connected to the database</td>
+</tr>
+
+<tr>
+<td>3937</td>
+<td title="main thread">main</td>
+<td title="Level">INFO</td>
+<td title="root category">root</td>
+<td title="Message">Account with matching username found in the database</td>
+</tr>
+
+<tr>
+<td>3937</td>
+<td title="main thread">main</td>
+<td title="Level">INFO</td>
+<td title="root category">root</td>
+<td title="Message">The given password matches the account's password</td>
+</tr>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>HTML Layout Log</title>
+<style type="text/css">
+<!--
+body, table {font-family: arial,sans-serif; font-size: x-small;}
+th {background: #336699; color: #FFFFFF; text-align: left;}
+-->
+</style>
+</head>
+<body bgcolor="#FFFFFF" topmargin="6" leftmargin="6">
+<hr size="1" noshade>
+Log session start time Wed Mar 31 15:06:56 EDT 2021<br>
+<br>
+<table cellspacing="0" cellpadding="4" border="1" bordercolor="#224466" width="100%">
+<tr>
+<th>Time</th>
+<th>Thread</th>
+<th>Level</th>
+<th>Category</th>
+<th>Message</th>
+</tr>
+
+<tr>
+<td>0</td>
+<td title="main thread">main</td>
+<td title="Level">TRACE</td>
+<td title="root category">root</td>
+<td title="Message">project runs</td>
+</tr>
+
+<tr>
+<td>3376</td>
+<td title="main thread">main</td>
+<td title="Level">INFO</td>
+<td title="root category">root</td>
+<td title="Message">Attempting to retrieve an existing account from the database</td>
+</tr>
+
+<tr>
+<td>3403</td>
+<td title="main thread">main</td>
+<td title="Level">INFO</td>
+<td title="root category">root</td>
+<td title="Message">URL : jdbc:postgresql://localhost:5432/hotel_database?</td>
+</tr>
+
+<tr>
+<td>3890</td>
+<td title="main thread">main</td>
+<td title="Level">INFO</td>
+<td title="root category">root</td>
+<td title="Message">Successfully connected to the database</td>
+</tr>
+
+<tr>
+<td>3912</td>
+<td title="main thread">main</td>
+<td title="Level">INFO</td>
+<td title="root category">root</td>
+<td title="Message">Account with matching username found in the database</td>
+</tr>
+
+<tr>
+<td>3913</td>
+<td title="main thread">main</td>
+<td title="Level">INFO</td>
+<td title="root category">root</td>
+<td title="Message">The given password matches the account's password</td>
+</tr>
+
+<tr>
+<td>6712</td>
+<td title="main thread">main</td>
+<td title="Level">TRACE</td>
+<td title="root category">root</td>
+<td title="Message">AccountDao.checkRoomPrices</td>
+</tr>
+
+<tr>
+<td>6712</td>
+<td title="main thread">main</td>
+<td title="Level">INFO</td>
+<td title="root category">root</td>
+<td title="Message">URL : jdbc:postgresql://localhost:5432/hotel_database?</td>
+</tr>
+
+<tr>
+<td>6767</td>
+<td title="main thread">main</td>
+<td title="Level">INFO</td>
+<td title="root category">root</td>
+<td title="Message">Attempting to retrieve room prices from the database</td>
+</tr>
+
+<tr>
+<td>6779</td>
+<td title="main thread">main</td>
+<td title="Level">INFO</td>
+<td title="root category">root</td>
+<td title="Message">Successfully retrieved the hotel room types and prices from the database</td>
+</tr>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>HTML Layout Log</title>
+<style type="text/css">
+<!--
+body, table {font-family: arial,sans-serif; font-size: x-small;}
+th {background: #336699; color: #FFFFFF; text-align: left;}
+-->
+</style>
+</head>
+<body bgcolor="#FFFFFF" topmargin="6" leftmargin="6">
+<hr size="1" noshade>
+Log session start time Wed Mar 31 15:36:09 EDT 2021<br>
+<br>
+<table cellspacing="0" cellpadding="4" border="1" bordercolor="#224466" width="100%">
+<tr>
+<th>Time</th>
+<th>Thread</th>
+<th>Level</th>
+<th>Category</th>
+<th>Message</th>
+</tr>
+
+<tr>
+<td>0</td>
+<td title="main thread">main</td>
+<td title="Level">TRACE</td>
+<td title="root category">root</td>
+<td title="Message">project runs</td>
+</tr>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>HTML Layout Log</title>
+<style type="text/css">
+<!--
+body, table {font-family: arial,sans-serif; font-size: x-small;}
+th {background: #336699; color: #FFFFFF; text-align: left;}
+-->
+</style>
+</head>
+<body bgcolor="#FFFFFF" topmargin="6" leftmargin="6">
+<hr size="1" noshade>
+Log session start time Wed Mar 31 15:36:52 EDT 2021<br>
+<br>
+<table cellspacing="0" cellpadding="4" border="1" bordercolor="#224466" width="100%">
+<tr>
+<th>Time</th>
+<th>Thread</th>
+<th>Level</th>
+<th>Category</th>
+<th>Message</th>
+</tr>
+
+<tr>
+<td>0</td>
+<td title="main thread">main</td>
+<td title="Level">TRACE</td>
+<td title="root category">root</td>
+<td title="Message">project runs</td>
+</tr>
+
+<tr>
+<td>4069</td>
+<td title="main thread">main</td>
+<td title="Level">INFO</td>
+<td title="root category">root</td>
+<td title="Message">Attempting to retrieve an existing account from the database</td>
+</tr>
+
+<tr>
+<td>4103</td>
+<td title="main thread">main</td>
+<td title="Level">INFO</td>
+<td title="root category">root</td>
+<td title="Message">URL : jdbc:postgresql://localhost:5432/hotel_database?</td>
+</tr>
+
+<tr>
+<td>5635</td>
+<td title="main thread">main</td>
+<td title="Level">INFO</td>
+<td title="root category">root</td>
+<td title="Message">Successfully connected to the database</td>
+</tr>
+
+<tr>
+<td>5712</td>
+<td title="main thread">main</td>
+<td title="Level">INFO</td>
+<td title="root category">root</td>
+<td title="Message">Account with matching username found in the database</td>
+</tr>
+
+<tr>
+<td>5716</td>
+<td title="main thread">main</td>
+<td title="Level">INFO</td>
+<td title="root category">root</td>
+<td title="Message">The given password matches the account's password</td>
+</tr>
+
+<tr>
+<td>5730</td>
+<td title="main thread">main</td>
+<td title="Level">TRACE</td>
+<td title="root category">root</td>
+<td title="Message">AccountDao.checkRoomPrices</td>
+</tr>
+
+<tr>
+<td>5732</td>
+<td title="main thread">main</td>
+<td title="Level">INFO</td>
+<td title="root category">root</td>
+<td title="Message">URL : jdbc:postgresql://localhost:5432/hotel_database?</td>
+</tr>
+
+<tr>
+<td>5911</td>
+<td title="main thread">main</td>
+<td title="Level">INFO</td>
+<td title="root category">root</td>
+<td title="Message">Attempting to retrieve room prices from the database</td>
+</tr>
+
+<tr>
+<td>5928</td>
+<td title="main thread">main</td>
+<td title="Level">INFO</td>
+<td title="root category">root</td>
+<td title="Message">Successfully retrieved the hotel room types and prices from the database</td>
+</tr>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>HTML Layout Log</title>
+<style type="text/css">
+<!--
+body, table {font-family: arial,sans-serif; font-size: x-small;}
+th {background: #336699; color: #FFFFFF; text-align: left;}
+-->
+</style>
+</head>
+<body bgcolor="#FFFFFF" topmargin="6" leftmargin="6">
+<hr size="1" noshade>
+Log session start time Wed Mar 31 15:37:27 EDT 2021<br>
+<br>
+<table cellspacing="0" cellpadding="4" border="1" bordercolor="#224466" width="100%">
+<tr>
+<th>Time</th>
+<th>Thread</th>
+<th>Level</th>
+<th>Category</th>
+<th>Message</th>
+</tr>
+
+<tr>
+<td>0</td>
+<td title="main thread">main</td>
+<td title="Level">TRACE</td>
+<td title="root category">root</td>
+<td title="Message">project runs</td>
+</tr>
+
+<tr>
+<td>5087</td>
+<td title="main thread">main</td>
+<td title="Level">INFO</td>
+<td title="root category">root</td>
+<td title="Message">Attempting to retrieve an existing account from the database</td>
+</tr>
+
+<tr>
+<td>5147</td>
+<td title="main thread">main</td>
+<td title="Level">INFO</td>
+<td title="root category">root</td>
+<td title="Message">URL : jdbc:postgresql://localhost:5432/hotel_database?</td>
+</tr>
+
+<tr>
+<td>5666</td>
+<td title="main thread">main</td>
+<td title="Level">INFO</td>
+<td title="root category">root</td>
+<td title="Message">Successfully connected to the database</td>
+</tr>
+
+<tr>
+<td>5713</td>
+<td title="main thread">main</td>
+<td title="Level">INFO</td>
+<td title="root category">root</td>
+<td title="Message">Account with matching username found in the database</td>
+</tr>
+
+<tr>
+<td>5714</td>
+<td title="main thread">main</td>
+<td title="Level">INFO</td>
+<td title="root category">root</td>
+<td title="Message">The given password matches the account's password</td>
+</tr>
+
+<tr>
+<td>5715</td>
+<td title="main thread">main</td>
+<td title="Level">TRACE</td>
+<td title="root category">root</td>
+<td title="Message">AccountDao.checkRoomPrices</td>
+</tr>
+
+<tr>
+<td>5716</td>
+<td title="main thread">main</td>
+<td title="Level">INFO</td>
+<td title="root category">root</td>
+<td title="Message">URL : jdbc:postgresql://localhost:5432/hotel_database?</td>
+</tr>
+
+<tr>
+<td>5780</td>
+<td title="main thread">main</td>
+<td title="Level">INFO</td>
+<td title="root category">root</td>
+<td title="Message">Attempting to retrieve room prices from the database</td>
+</tr>
+
+<tr>
+<td>5789</td>
+<td title="main thread">main</td>
+<td title="Level">INFO</td>
+<td title="root category">root</td>
+<td title="Message">Successfully retrieved the hotel room types and prices from the database</td>
+</tr>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>HTML Layout Log</title>
+<style type="text/css">
+<!--
+body, table {font-family: arial,sans-serif; font-size: x-small;}
+th {background: #336699; color: #FFFFFF; text-align: left;}
+-->
+</style>
+</head>
+<body bgcolor="#FFFFFF" topmargin="6" leftmargin="6">
+<hr size="1" noshade>
+Log session start time Wed Mar 31 15:38:48 EDT 2021<br>
+<br>
+<table cellspacing="0" cellpadding="4" border="1" bordercolor="#224466" width="100%">
+<tr>
+<th>Time</th>
+<th>Thread</th>
+<th>Level</th>
+<th>Category</th>
+<th>Message</th>
+</tr>
+
+<tr>
+<td>0</td>
+<td title="main thread">main</td>
+<td title="Level">TRACE</td>
+<td title="root category">root</td>
+<td title="Message">project runs</td>
+</tr>
+
+<tr>
+<td>6948</td>
+<td title="main thread">main</td>
+<td title="Level">INFO</td>
+<td title="root category">root</td>
+<td title="Message">Attempting to retrieve an existing account from the database</td>
+</tr>
+
+<tr>
+<td>6983</td>
+<td title="main thread">main</td>
+<td title="Level">INFO</td>
+<td title="root category">root</td>
+<td title="Message">URL : jdbc:postgresql://localhost:5432/hotel_database?</td>
+</tr>
+
+<tr>
+<td>7644</td>
+<td title="main thread">main</td>
+<td title="Level">INFO</td>
+<td title="root category">root</td>
+<td title="Message">Successfully connected to the database</td>
+</tr>
+
+<tr>
+<td>7678</td>
+<td title="main thread">main</td>
+<td title="Level">INFO</td>
+<td title="root category">root</td>
+<td title="Message">Account with matching username found in the database</td>
+</tr>
+
+<tr>
+<td>7679</td>
+<td title="main thread">main</td>
+<td title="Level">INFO</td>
+<td title="root category">root</td>
+<td title="Message">The given password matches the account's password</td>
+</tr>
+
+<tr>
+<td>7681</td>
+<td title="main thread">main</td>
+<td title="Level">TRACE</td>
+<td title="root category">root</td>
+<td title="Message">AccountDao.checkRoomPrices</td>
+</tr>
+
+<tr>
+<td>7681</td>
+<td title="main thread">main</td>
+<td title="Level">INFO</td>
+<td title="root category">root</td>
+<td title="Message">URL : jdbc:postgresql://localhost:5432/hotel_database?</td>
+</tr>
+
+<tr>
+<td>7758</td>
+<td title="main thread">main</td>
+<td title="Level">INFO</td>
+<td title="root category">root</td>
+<td title="Message">Attempting to retrieve room prices from the database</td>
+</tr>
+
+<tr>
+<td>7766</td>
+<td title="main thread">main</td>
+<td title="Level">INFO</td>
+<td title="root category">root</td>
+<td title="Message">Successfully retrieved the hotel room types and prices from the database</td>
+</tr>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>HTML Layout Log</title>
+<style type="text/css">
+<!--
+body, table {font-family: arial,sans-serif; font-size: x-small;}
+th {background: #336699; color: #FFFFFF; text-align: left;}
+-->
+</style>
+</head>
+<body bgcolor="#FFFFFF" topmargin="6" leftmargin="6">
+<hr size="1" noshade>
+Log session start time Wed Mar 31 15:41:58 EDT 2021<br>
+<br>
+<table cellspacing="0" cellpadding="4" border="1" bordercolor="#224466" width="100%">
+<tr>
+<th>Time</th>
+<th>Thread</th>
+<th>Level</th>
+<th>Category</th>
+<th>Message</th>
+</tr>
+
+<tr>
+<td>0</td>
+<td title="main thread">main</td>
+<td title="Level">TRACE</td>
+<td title="root category">root</td>
+<td title="Message">project runs</td>
+</tr>
+
+<tr>
+<td>3514</td>
+<td title="main thread">main</td>
+<td title="Level">INFO</td>
+<td title="root category">root</td>
+<td title="Message">Attempting to retrieve an existing account from the database</td>
+</tr>
+
+<tr>
+<td>3631</td>
+<td title="main thread">main</td>
+<td title="Level">INFO</td>
+<td title="root category">root</td>
+<td title="Message">URL : jdbc:postgresql://localhost:5432/hotel_database?</td>
+</tr>
+
+<tr>
+<td>4384</td>
+<td title="main thread">main</td>
+<td title="Level">INFO</td>
+<td title="root category">root</td>
+<td title="Message">Successfully connected to the database</td>
+</tr>
+
+<tr>
+<td>4421</td>
+<td title="main thread">main</td>
+<td title="Level">INFO</td>
+<td title="root category">root</td>
+<td title="Message">Account with matching username found in the database</td>
+</tr>
+
+<tr>
+<td>4422</td>
+<td title="main thread">main</td>
+<td title="Level">INFO</td>
+<td title="root category">root</td>
+<td title="Message">The given password matches the account's password</td>
+</tr>
+
+<tr>
+<td>4424</td>
+<td title="main thread">main</td>
+<td title="Level">TRACE</td>
+<td title="root category">root</td>
+<td title="Message">AccountDao.checkRoomPrices</td>
+</tr>
+
+<tr>
+<td>4424</td>
+<td title="main thread">main</td>
+<td title="Level">INFO</td>
+<td title="root category">root</td>
+<td title="Message">URL : jdbc:postgresql://localhost:5432/hotel_database?</td>
+</tr>
+
+<tr>
+<td>4491</td>
+<td title="main thread">main</td>
+<td title="Level">INFO</td>
+<td title="root category">root</td>
+<td title="Message">Attempting to retrieve room prices from the database</td>
+</tr>
+
+<tr>
+<td>4499</td>
+<td title="main thread">main</td>
+<td title="Level">INFO</td>
+<td title="root category">root</td>
+<td title="Message">Successfully retrieved the hotel room types and prices from the database</td>
+</tr>
