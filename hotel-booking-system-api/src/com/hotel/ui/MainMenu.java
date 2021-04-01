@@ -1,5 +1,6 @@
 package com.hotel.ui;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -7,6 +8,7 @@ import java.util.Scanner;
 
 import com.hotel.dao.AccountDao;
 import com.hotel.pojo.Account;
+import com.hotel.pojo.Room;
 
 public class MainMenu implements Menu {
 	
@@ -21,7 +23,7 @@ public class MainMenu implements Menu {
 	private Account account;
 	
 	// retrieves the room types and prices from the database; retrieved immediately after logging in
-	private Map<String, Integer> roomTypesAndPrices;
+	private ArrayList<Room> rooms = new ArrayList<Room>();
 	
 	public MainMenu() {
 		super();
@@ -38,7 +40,7 @@ public class MainMenu implements Menu {
 		String selection = "";
 		System.out.println();
 		
-		roomTypesAndPrices = accountDao.getRoomTypesAndPrices();
+		rooms = accountDao.getRoomTypesAndPrices();
 		
 		boolean quit = false;
 		
@@ -99,10 +101,8 @@ public class MainMenu implements Menu {
 					
 					switch(selection) {
 						case "c": // check room types and prices
-							Iterator<Entry<String, Integer>> iterator = roomTypesAndPrices.entrySet().iterator();
-							while (iterator.hasNext()) {
-								Entry<String, Integer> room = iterator.next();
-								System.out.println(room.getKey() + " - $" +room.getValue());
+							for (Room room : rooms) {
+								System.out.println(room.getType() + " - $" + room.getPrice());
 							}
 							break;
 						case "v": // view reservation information

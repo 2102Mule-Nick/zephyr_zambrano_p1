@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,6 +14,7 @@ import org.apache.log4j.Logger;
 import com.hotel.exception.AccountNotFound;
 import com.hotel.exception.InvalidPassword;
 import com.hotel.pojo.Account;
+import com.hotel.pojo.Room;
 import com.hotel.util.ConnectionFactoryPostgres;
 
 public class AccountDao {
@@ -297,15 +299,15 @@ public class AccountDao {
 		System.out.println();
 	}
 	
-	public Map<String, Integer> getRoomTypesAndPrices() {
+	public ArrayList<Room> getRoomTypesAndPrices() {
 		// TODO comment
 		/**
 		 * 
 		 */
 		
-		log.trace("AccountDao.checkRoomPrices");
+		log.trace("AccountDao.getRoomTypesAndPrices");
 		
-		Map<String, Integer> roomTypesAndPrices = new HashMap<String, Integer>();
+		ArrayList<Room> rooms = new ArrayList<Room>();
 		
 		String sql = "select * from hotel.rooms;";
 		
@@ -320,7 +322,10 @@ public class AccountDao {
 			ResultSet rs = preparedStatement.executeQuery();
 			
 			while (rs.next()) {
-				roomTypesAndPrices.put(rs.getString("room_type"), rs.getInt("room_price"));
+				Room room = new Room();
+				room.setType(rs.getString("room_type"));
+				room.setPrice(rs.getInt("room_price"));
+				rooms.add(room);
 			}
 			
 			connection.close();
@@ -331,7 +336,7 @@ public class AccountDao {
 			e.printStackTrace();
 		}
 		
-		return roomTypesAndPrices;
+		return rooms;
 		
 	}
 	
