@@ -5,16 +5,6 @@ public class Room {
 	private String type;
 	
 	private int price;
-	
-	public Room() {
-		super();
-	}
-
-	public Room(String type, int price) {
-		super();
-		this.type = type;
-		this.price = price;
-	}
 
 	public String getType() {
 		return type;
@@ -29,6 +19,16 @@ public class Room {
 	}
 
 	public void setPrice(int price) {
+		this.price = price;
+	}
+	
+	public Room() {
+		super();
+	}
+
+	public Room(String type, int price) {
+		super();
+		this.type = type;
 		this.price = price;
 	}
 

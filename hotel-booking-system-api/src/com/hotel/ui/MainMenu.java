@@ -1,13 +1,11 @@
 package com.hotel.ui;
 
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Scanner;
 
 import com.hotel.dao.AccountDao;
 import com.hotel.pojo.Account;
+import com.hotel.pojo.HotelDate;
 import com.hotel.pojo.Room;
 
 public class MainMenu implements Menu {
@@ -22,8 +20,12 @@ public class MainMenu implements Menu {
 	
 	private Account account;
 	
-	// retrieves the room types and prices from the database; retrieved immediately after logging in
+	// retreives the room types and prices from the database; retrieved immediately after logging in
 	private ArrayList<Room> rooms = new ArrayList<Room>();
+	
+	// retreives the available dates to make a reservation, as well as check in and check out times
+	// retrieved immediately after logging in
+	private ArrayList<HotelDate> hotelDates = new ArrayList<HotelDate>();
 	
 	public MainMenu() {
 		super();
@@ -41,6 +43,8 @@ public class MainMenu implements Menu {
 		System.out.println();
 		
 		rooms = accountDao.getRoomTypesAndPrices();
+		
+		hotelDates = accountDao.getDates();
 		
 		boolean quit = false;
 		
@@ -91,6 +95,7 @@ public class MainMenu implements Menu {
 					System.out.println();
 					System.out.println("What would you like to do?");
 					System.out.println("c: check room types and prices");
+					System.out.println("h: view hotel dates");
 					System.out.println("v: view reservation information");
 					System.out.println("u: update reeservation");
 					System.out.println("d: delete reservation");
@@ -101,8 +106,20 @@ public class MainMenu implements Menu {
 					
 					switch(selection) {
 						case "c": // check room types and prices
+							System.out.println("Room Types and Prices");
+							System.out.println();
 							for (Room room : rooms) {
 								System.out.println(room.getType() + " - $" + room.getPrice());
+							}
+							break;
+						case "h": // hotel dates and check in and check out times
+							System.out.println("Available Dates to Reserve Rooms");
+							System.out.println();
+							for (HotelDate hotelDate : hotelDates) {
+								System.out.println("Date: " + hotelDate.getReservationDate());
+								System.out.println("Check-In Time: " + hotelDate.getCheckInTime());
+								System.out.println("Check-Out Time: " + hotelDate.getCheckOutTime());
+								System.out.println();
 							}
 							break;
 						case "v": // view reservation information
