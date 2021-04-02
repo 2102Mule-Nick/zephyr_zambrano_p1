@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import com.hotel.dao.AccountDao;
+import com.hotel.dao.DateDao;
+import com.hotel.dao.ReservationDao;
+import com.hotel.dao.RoomDao;
 import com.hotel.pojo.Account;
 import com.hotel.pojo.HotelDate;
 import com.hotel.pojo.Room;
@@ -19,6 +22,12 @@ public class MainMenu implements Menu {
 	private AccountDao accountDao;
 	
 	private Account account;
+	
+	private RoomDao roomDao = new RoomDao();
+	
+	private DateDao dateDao = new DateDao();
+	
+	private ReservationDao reservationDao = new ReservationDao();
 	
 	// retreives the room types and prices from the database; retrieved immediately after logging in
 	private ArrayList<Room> rooms = new ArrayList<Room>();
@@ -42,9 +51,9 @@ public class MainMenu implements Menu {
 		String selection = "";
 		System.out.println();
 		
-		rooms = accountDao.getRoomTypesAndPrices();
+		rooms = roomDao.getRoomTypesAndPrices();
 		
-		hotelDates = accountDao.getDates();
+		hotelDates = dateDao.getDates();
 		
 		boolean quit = false;
 		
@@ -77,7 +86,16 @@ public class MainMenu implements Menu {
 					
 					switch(selection) {
 						case "v": // view account info
-							accountDao.viewAccountDetails(account);
+							System.out.println("Account Details");
+							System.out.println();
+							System.out.println("Username: " + account.getUsername());
+							System.out.println("Password: " + account.getPassword());
+							System.out.println();
+							System.out.println("Name: " + account.getFullName());
+							System.out.println("Address: " + account.getFullAddress());
+							System.out.println("Email: " + account.getEmail());
+							System.out.println("Phone Number: " + account.getPhoneNumber());
+							System.out.println();
 							break;
 						case "u": // update account
 							updateAccount(selection);
@@ -123,7 +141,8 @@ public class MainMenu implements Menu {
 							}
 							break;
 						case "v": // view reservation information
-							accountDao.viewReservations(account);
+							reservationDao.viewReservations(account);
+							reservationDao.getAllReservationsForASpecificAccount();
 							break;
 						case "u": // update existing reservation
 							// TODO implement

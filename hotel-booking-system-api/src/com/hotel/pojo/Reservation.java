@@ -21,6 +21,8 @@ public class Reservation {
 	
 	private int roomPrice; // price of one night's stay in a particular type of room
 	
+	private int numberOfNights; // number of nights the user reserved at the hotel
+	
 	private int reservationPrice; // based on the type and number of rooms booked
 	
 	public int getReservationId() {
@@ -85,6 +87,14 @@ public class Reservation {
 
 	public void setRoomPrice(int roomPrice) {
 		this.roomPrice = roomPrice;
+	}
+	
+	public int getNumberOfNights() {
+		return numberOfNights;
+	}
+
+	public void setNumberOfNights(int numberOfNights) {
+		this.numberOfNights = numberOfNights;
 	}
 
 	public int getReservationPrice() {
