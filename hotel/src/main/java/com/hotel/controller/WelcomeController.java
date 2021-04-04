@@ -9,7 +9,7 @@ public class WelcomeController {
 
 	@GetMapping("/")
 	@ResponseBody
-	public String world() {
+	public String welcome() {
 		return "Welcome to the Hotel Booking System API!";
 	}
 	
