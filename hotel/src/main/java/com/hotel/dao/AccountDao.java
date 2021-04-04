@@ -14,6 +14,7 @@ import org.springframework.stereotype.Repository;
 import com.hotel.dao.mapper.AccountRowMapper;
 import com.hotel.exception.AccountNotFound;
 import com.hotel.exception.InvalidPassword;
+import com.hotel.exception.UsernameTaken;
 import com.hotel.pojo.Account;
 import com.hotel.util.ConnectionFactoryPostgres;
 
