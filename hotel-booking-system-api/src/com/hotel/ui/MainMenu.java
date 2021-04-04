@@ -141,7 +141,6 @@ public class MainMenu implements Menu {
 							}
 							break;
 						case "v": // view reservation information
-							reservationDao.viewReservations(account);
 							reservationDao.getAllReservationsForASpecificAccount();
 							break;
 						case "u": // update existing reservation

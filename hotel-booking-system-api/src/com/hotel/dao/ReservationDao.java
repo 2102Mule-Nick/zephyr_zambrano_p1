@@ -20,21 +20,6 @@ public class ReservationDao {
 		super();
 	}
 	
-	public void viewReservations(Account account) {
-		// TODO make sure it returns ALL reservation details instead of just printing them
-		// TODO implement this method
-		// TODO or delete this method since I can already
-		/**
-		 * Allows the user to view their existing hotel reservations.
-		 * 
-		 * @param account	The account the hotel reservations were made from.
-		 * @see Reservation
-		 */
-		
-		log.trace("ReservationDao.viewReservations");
-		
-	}
-	
 	public Reservation getReservationById(int reservationId) {
 		// TODO implement
 		/**
