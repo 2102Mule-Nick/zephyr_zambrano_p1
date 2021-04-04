@@ -15,7 +15,6 @@ import com.hotel.dao.mapper.AccountRowMapper;
 import com.hotel.exception.AccountNotFound;
 import com.hotel.exception.InvalidPassword;
 import com.hotel.pojo.Account;
-import com.hotel.pojo.Reservation;
 import com.hotel.util.ConnectionFactoryPostgres;
 
 @Repository
@@ -84,6 +83,57 @@ public class AccountDao {
 		}
 		
 		return false;
+		
+	}
+	
+	public Account getAccountByUsernamee(String username) throws AccountNotFound {
+		/**
+		 * Connects to the Postgres database to check if the given username is already used by an existing account.
+		 * 
+		 * @param username		username that the user uses to log into their account		
+		 * @return				true if the given username is already taken and false otherwise
+		 * @see SignupMenu
+		 */
+		
+		log.info("Checking to see if the username is taken");
+		
+		String sql = "select * from hotel.accounts where user_name = ?;";
+		
+		PreparedStatement preparedStatement;
+		
+		Connection connection = ConnectionFactoryPostgres.getConnection();
+		
+		Account account = new Account();
+		
+		try {
+			
+			log.info("Successfully connected to the database");
+
+			preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setString(1, username);
+			ResultSet rs = preparedStatement.executeQuery();
+			connection.close();
+			
+			if (rs.next()) {
+				account.setAccountId(rs.getInt("account_id"));
+				account.setUsername(rs.getString("user_name"));
+				account.setPassword(rs.getString("pass_word"));
+				account.setFullName(rs.getString("full_name"));
+				account.setFullAddress(rs.getString("full_address"));
+				account.setEmail(rs.getString("email"));
+				account.setPhoneNumber(rs.getString("phone_number"));
+			}
+			else {
+				throw new AccountNotFound();
+			}
+			
+		}
+		catch (SQLException e) { // wrapper for any exception or error state the database would throw (not to be confused with wrapper classes)
+			log.error("Unable to connect to the database", e);
+			e.printStackTrace();
+		}
+		
+		return account;
 		
 	}
 	
