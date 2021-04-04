@@ -29,6 +29,10 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.jta.JtaTransactionManager;
 
+import com.hotel.dao.AccountDao;
+import com.hotel.dao.DateDao;
+import com.hotel.dao.ReservationDao;
+import com.hotel.dao.RoomDao;
 import com.hotel.messaging.JmsMessageListener;
 import com.hotel.messaging.JmsMessageSender;
 
@@ -168,6 +172,18 @@ public class JTAConfig {
 	
 	/*@Autowired
 	private CartDao cartDao;*/
+	
+	@Autowired
+	private AccountDao accountDao;
+	
+	@Autowired
+	private ReservationDao reservationDao;
+	
+	@Autowired
+	private RoomDao roomDao;
+	
+	@Autowired
+	private DateDao dateDao;
 	
 	public static void main(String[] args) /*throws OutOfStockException*/ {
 		

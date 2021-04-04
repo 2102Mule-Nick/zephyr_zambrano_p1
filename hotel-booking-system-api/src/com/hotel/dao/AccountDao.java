@@ -4,32 +4,40 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
 
+import com.hotel.dao.mapper.AccountRowMapper;
 import com.hotel.exception.AccountNotFound;
 import com.hotel.exception.InvalidPassword;
 import com.hotel.pojo.Account;
 import com.hotel.util.ConnectionFactoryPostgres;
 
+@Repository
 public class AccountDao {
 	
 	private Logger log = Logger.getRootLogger();
 	
-	/*private Connection connection;
-	public Connection getConnection() {
-		return connection;
+	private JdbcTemplate jdbcTemplate;
+
+	private AccountRowMapper accountRowMapper;
+
+	@Autowired
+	public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
+		this.jdbcTemplate = jdbcTemplate;
 	}
-	public void setConnection(Connection connection) {
-		this.connection = connection;
-	}*/
+
+	@Autowired
+	public void setAccountRowMapper(AccountRowMapper accountRowMapper) {
+		this.accountRowMapper = accountRowMapper;
+	}
 	
 	public AccountDao() {
 		super();
 	}
-	
-	// TODO change return types for when I split these up into separate systems and send messages back and forth
 	
 	public boolean getAccountByUsername(String username) {
 		/**
@@ -150,6 +158,7 @@ public class AccountDao {
 	}
 	
 	public boolean createAccount(Account account) {
+	// public void createAccount(Account account) {
 		/**
 		 * Creates a new account in the Postgres database.
 		 * Uses a prepared statement to protect against SQL injection attacks.
@@ -158,6 +167,17 @@ public class AccountDao {
 		 * @see Account
 		 */
 		
+		/*
+		String sql = "insert into hotel.accounts "
+				+ "(user_name, pass_word, full_name, full_address, email, phone_number)"
+				+ "values (?, ?, ?, ?, ?, ?);";
+		
+		jdbcTemplate.update(sql, account.getUsername(), account.getPassword(), 
+		account.getFullName(), account.getFullAddress(), 
+		account.getEmail(), account.getPhoneNumber());
+		*/
+		
+		// /*
 		String sql = "insert into hotel.accounts "
 				+ "(user_name, pass_word, full_name, full_address, email, phone_number)"
 				+ "values (?, ?, ?, ?, ?, ?);";
@@ -187,6 +207,7 @@ public class AccountDao {
 			e.printStackTrace();
 			return false;
 		}
+		// */
 		
 	}
 	

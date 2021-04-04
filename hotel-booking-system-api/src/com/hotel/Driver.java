@@ -2,8 +2,6 @@ package com.hotel;
 
 import java.util.Scanner;
 
-import org.apache.log4j.Logger;
-
 import com.hotel.dao.AccountDao;
 import com.hotel.ui.LoginMenu;
 import com.hotel.ui.MainMenu;
@@ -14,9 +12,6 @@ import com.hotel.ui.WelcomeMenu;
 public class Driver {
 
 	public static void main(String[] args) {
-		
-		Logger log = Logger.getRootLogger();
-		log.trace("project runs");
 		
 		Scanner scanner = new Scanner(System.in);
 		
@@ -50,7 +45,7 @@ public class Driver {
 			nextMenu.displayOptions();
 			nextMenu = nextMenu.advance();
 		} while (nextMenu != null);
-
+		
 	}
 
 }

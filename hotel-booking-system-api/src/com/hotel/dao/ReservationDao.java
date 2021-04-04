@@ -7,14 +7,33 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
 
+import com.hotel.dao.mapper.ReservationRowMapper;
 import com.hotel.pojo.Account;
 import com.hotel.pojo.Reservation;
 import com.hotel.util.ConnectionFactoryPostgres;
 
+@Repository
 public class ReservationDao {
 	
 	private Logger log = Logger.getRootLogger();
+	
+	private JdbcTemplate jdbcTemplate;
+	
+	private ReservationRowMapper reservationRowMapper;
+	
+	@Autowired
+	public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
+		this.jdbcTemplate = jdbcTemplate;
+	}
+
+	@Autowired
+	public void setReservationRowMapper(ReservationRowMapper reservationRowMapper) {
+		this.reservationRowMapper = reservationRowMapper;
+	}
 	
 	public ReservationDao() {
 		super();

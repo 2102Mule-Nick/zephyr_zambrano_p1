@@ -10,13 +10,7 @@ public class WelcomeController {
 	@GetMapping("/")
 	@ResponseBody
 	public String world() {
-		return "Welcome to the Hotel API!";
-	}
-	
-	@GetMapping("/hello")
-	@ResponseBody
-	public String helloWorld() {
-		return "hello world!";
+		return "Welcome to the Hotel Booking System API!";
 	}
 	
 }

@@ -7,13 +7,32 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
 
+import com.hotel.dao.mapper.DateRowMapper;
 import com.hotel.pojo.HotelDate;
 import com.hotel.util.ConnectionFactoryPostgres;
 
+@Repository
 public class DateDao {
 	
 	private Logger log = Logger.getRootLogger();
+	
+	private JdbcTemplate jdbcTemplate;
+	
+	private DateRowMapper dateRowMapper;
+	
+	@Autowired
+	public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
+		this.jdbcTemplate = jdbcTemplate;
+	}
+
+	@Autowired
+	public void setDateRowMapper(DateRowMapper dateRowMapper) {
+		this.dateRowMapper = dateRowMapper;
+	}
 	
 	public DateDao() {
 		super();
