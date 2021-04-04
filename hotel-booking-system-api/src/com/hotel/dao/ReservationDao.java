@@ -44,6 +44,7 @@ public class ReservationDao {
 			preparedStatement.setInt(1, reservationId);
 			ResultSet rs = preparedStatement.executeQuery();
 			
+			reservation.setAccountId(rs.getInt("account_id"));
 			reservation.setReservationStartDate(rs.getDate("reservation_start_date"));
 			reservation.setReservationEndDate(rs.getDate("reservation_start_date"));
 			reservation.setCheckInTime(rs.getTime("check_in_time"));
@@ -90,6 +91,8 @@ public class ReservationDao {
 			
 			while (rs.next()) {
 				Reservation reservation = new Reservation();
+				reservation.setReservationId(rs.getInt("reservation_id"));
+				reservation.setAccountId(rs.getInt("account_id"));
 				reservation.setReservationStartDate(rs.getDate("reservation_start_date"));
 				reservation.setReservationEndDate(rs.getDate("reservation_start_date"));
 				reservation.setCheckInTime(rs.getTime("check_in_time"));
