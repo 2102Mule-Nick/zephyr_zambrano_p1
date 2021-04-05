@@ -24,7 +24,7 @@ public class RoomController {
 	
 	@GetMapping("/room")
 	@ResponseBody
-	public ResponseEntity<ArrayList<Room>> getRooms() {
+	public ResponseEntity<List<Room>> getRooms() {
 		return ResponseEntity.ok(roomDao.getRoomTypesAndPrices());
 	}
 

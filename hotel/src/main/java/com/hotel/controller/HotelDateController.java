@@ -1,6 +1,6 @@
 package com.hotel.controller;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +23,7 @@ public class HotelDateController {
 	
 	@GetMapping("/date")
 	@ResponseBody
-	public ResponseEntity<ArrayList<HotelDate>> getDates() {
+	public ResponseEntity<List<HotelDate>> getDates() {
 		return ResponseEntity.ok(dateDao.getDates());
 	}
 	

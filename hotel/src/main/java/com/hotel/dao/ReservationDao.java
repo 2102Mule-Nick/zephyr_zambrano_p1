@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -85,7 +86,7 @@ public class ReservationDao {
 		
 	}
 	
-	public ArrayList<Reservation> getAllReservationsForASpecificAccount() {
+	public List<Reservation> getAllReservationsForASpecificAccount(String username) {
 		// TODO implement
 		/**
 		 * 
@@ -94,43 +95,9 @@ public class ReservationDao {
 		
 		log.trace("ReservationDao.getAllReservationsForASpecificAccount");
 		
-		ArrayList<Reservation> reservations = new ArrayList<Reservation>();
+		String sql = "select * from hotel.reservations where user_name = ?;";
 		
-		String sql = "select * from hotel.reservations;";
-		
-		PreparedStatement preparedStatement;
-		
-		Connection connection = ConnectionFactoryPostgres.getConnection();
-		
-		log.info("Attempting to get all reservations for a specific account");
-		
-		try {
-			preparedStatement = connection.prepareStatement(sql);
-			ResultSet rs = preparedStatement.executeQuery();
-			
-			while (rs.next()) {
-				Reservation reservation = new Reservation();
-				reservation.setReservationId(rs.getInt("reservation_id"));
-				reservation.setAccountId(rs.getInt("account_id"));
-				reservation.setReservationStartDate(rs.getDate("reservation_start_date"));
-				reservation.setReservationEndDate(rs.getDate("reservation_start_date"));
-				reservation.setCheckInTime(rs.getTime("check_in_time"));
-				reservation.setCheckOutTime(rs.getTime("check_out_time"));
-				reservation.setRoomType(rs.getString("room_type"));
-				reservation.setRoomPrice(rs.getInt("room_price"));
-				reservation.setNumberOfNights(rs.getInt("number_of_nights"));
-				reservation.setReservationPrice(rs.getInt("reservation_price"));
-				reservations.add(reservation);
-				// TODO CALCULATE RESERVATION PRICES  FOR CREATE AND UPDATE METHODS
-			}
-			
-			connection.close();
-			log.info("Successfully got all reservations for a specific account");
-		}
-		catch (SQLException e) {
-			log.error("Unable to get all reservations for a specific account", e);
-			e.printStackTrace();
-		}
+		List<Reservation> reservations = jdbcTemplate.query(sql, reservationRowMapper, username);
 		
 		return reservations;
 		
@@ -262,35 +229,25 @@ public class ReservationDao {
 		
 	}
 	
-	public boolean deleteAllReservations(Account account) {
+	public boolean deleteAllReservationsForASpecificAccount(Account account) {
 		// if user deletes account but they still have reservations booked
 		// or if the user just wants to cancel all their reservations
 		/**
 		 * 
 		 */
 		
+		// TODO decide if i will be using accountId or username
+		
 		log.trace("ReservationDao.deleteAllReservations");
 		log.info("Attempting to delete all reservations for the current account");
 		
-		Connection connection = ConnectionFactoryPostgres.getConnection();
+		String sql = "delete from accounts where username = ?;";
 		
-		String sql = "delete from hotel.reservations where account_id = ?;";
-		
-		PreparedStatement preparedStatement;
-		
-		try {
-			preparedStatement = connection.prepareStatement(sql);
-			preparedStatement.setInt(1, account.getAccountId());
-			preparedStatement.execute();
-			
-			connection.close();
-			log.info("Successfully deleted all reservations for the given account");
-			return true;
-		}
-		catch (SQLException e) {
-			log.error("Unable to connect to database to delete all reservations for the given account");
-			e.printStackTrace();
+		if (jdbcTemplate.update(sql, account.getUsername()) == 0) {
 			return false;
+		}
+		else {
+			return true;
 		}
 		
 	}
