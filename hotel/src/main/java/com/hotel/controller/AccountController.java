@@ -1,6 +1,6 @@
 package com.hotel.controller;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -32,7 +32,7 @@ public class AccountController {
 	@ResponseBody
 	public ResponseEntity<Account> getAccountByUsername(@PathVariable("username") String username) {
 		try {
-			return ResponseEntity.ok(accountDao.getAccountByUsernamee(username));
+			return ResponseEntity.ok(accountDao.getAccountByUsername(username));
 		}
 		catch (AccountNotFound e) {
 			return ResponseEntity.notFound().build();
@@ -41,14 +41,14 @@ public class AccountController {
 	
 	@GetMapping("/account")
 	@ResponseBody
-	public ArrayList<Account> getAllAccounts() {
+	public List<Account> getAllAccounts() {
 		return accountDao.getAllAccounts();
 	}
 	
 	@GetMapping("/account/username-taken/{username}")
 	@ResponseBody
 	public String checkIfUsernameTaken(@PathVariable("username") String username) {
-		if (accountDao.getAccountByUsername(username)) {
+		if (accountDao.checkIfUsernameTaken(username)) {
 			return "Username taken";
 		}
 		else {
@@ -59,27 +59,29 @@ public class AccountController {
 	@PostMapping("/account/create-account")
 	@ResponseBody
 	public String createAccount(@RequestBody Account account) {
-		if (accountDao.createAccount(account)) {
-			return "Account successfully created";
-		}
-		else {
-			return "Unable to create account";
-		}
-		
-		/*try {
-			accountDao.createAccount(account);
-			return "New account created";
+		try {
+			boolean success = accountDao.createAccount(account);
+			
+			if (success == true) {
+				return "Account successfully created";
+			}
+			else {
+				return "Unable to create account";
+			}
 		}
 		catch (UsernameTaken e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return "Username taken; unable to create account";
 		}
-		return "Something happened";*/
+		
 	}
 	
 	@PutMapping(path = "/account/update-account")
 	@ResponseBody
 	public String updateAccount(@RequestBody Account account) {
+		
+		
 		if (accountDao.updateAccount(account)) {
 			return "Account successfully updated";
 		}
@@ -97,7 +99,7 @@ public class AccountController {
 			return "Account deleted";
 		}
 		else {
-			return "Account not deleted";	
+			return "Unable to delete account";	
 		}
 	}
 	
@@ -109,7 +111,7 @@ public class AccountController {
 			return "Account deleted";
 		}
 		else {
-			return "Account not deleted";	
+			return "Unable to delete account";	
 		}
 	}
 	
@@ -121,7 +123,7 @@ public class AccountController {
 			return "Account deleted";
 		}
 		else {
-			return "Account not deleted";	
+			return "Unable to delete account";	
 		}
 		
 	}

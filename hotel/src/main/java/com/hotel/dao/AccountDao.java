@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +41,7 @@ public class AccountDao {
 		super();
 	}
 	
-	public boolean getAccountByUsername(String username) {
+	public boolean checkIfUsernameTaken(String username) {
 		/**
 		 * Connects to the Postgres database to check if the given username is already used by an existing account.
 		 * 
@@ -50,44 +50,22 @@ public class AccountDao {
 		 * @see SignupMenu
 		 */
 		
-		log.info("Checking to see if the username is taken");
+		log.trace("AccountDao.getAccountByUsername");
 		
 		String sql = "select * from hotel.accounts where user_name = ?;";
 		
-		PreparedStatement preparedStatement;
+		List<Account> accounts = jdbcTemplate.query(sql, accountRowMapper, username);
 		
-		Connection connection = ConnectionFactoryPostgres.getConnection();
-		
-		try {
-			
-			log.info("Successfully connected to the database");
-
-			preparedStatement = connection.prepareStatement(sql);
-			preparedStatement.setString(1, username);
-			ResultSet rs = preparedStatement.executeQuery();
-			
-			connection.close();
-			
-			if (rs.next()) {
-				log.info("Username already taken");
-				return true;
-			}
-			else {
-				log.info("Username is available");
-				return false;
-			}
-		
+		if (accounts == null) {
+			return false;
 		}
-		catch (SQLException e) { // wrapper for any exception or error state the database would throw (not to be confused with wrapper classes)
-			log.error("Unable to connect to the database", e);
-			e.printStackTrace();
+		else {
+			return true;
 		}
-		
-		return false;
 		
 	}
 	
-	public Account getAccountByUsernamee(String username) throws AccountNotFound {
+	public Account getAccountByUsername(String username) throws AccountNotFound {
 		/**
 		 * Connects to the Postgres database to check if the given username is already used by an existing account.
 		 * 
@@ -210,53 +188,19 @@ public class AccountDao {
 		return null;
 	}
 	
-	public ArrayList<Account> getAllAccounts() {
+	public List<Account> getAllAccounts() {
 		
 		log.trace("AccountDao.getAllAccounts");
 		
-		ArrayList<Account> accounts = new ArrayList<Account>();
+		String sql = "select * from accounts";
 		
-		String sql = "select * from hotel.accounts;";
-		
-		PreparedStatement preparedStatement;
-		
-		Connection connection = ConnectionFactoryPostgres.getConnection();
-		
-		log.info("Attempting to get all all accounts from the database");
-		
-		try {
-			preparedStatement = connection.prepareStatement(sql);
-			ResultSet rs = preparedStatement.executeQuery();
-			
-			while (rs.next()) {
-				
-				Account account = new Account();
-				
-				account.setAccountId(rs.getInt("account_id"));
-				account.setUsername(rs.getString("user_name"));
-				account.setPassword(rs.getString("pass_word"));
-				account.setFullName(rs.getString("full_name"));
-				account.setFullAddress(rs.getString("full_address"));
-				account.setEmail(rs.getString("email"));
-				account.setPhoneNumber(rs.getString("phone_number"));
-				
-				accounts.add(account);
-				
-			}
-			
-			connection.close();
-			log.info("Successfully got all accounts from the database");
-		}
-		catch (SQLException e) {
-			log.error("Unable to get all accounts from the database", e);
-			e.printStackTrace();
-		}
+		List<Account> accounts = jdbcTemplate.query(sql, accountRowMapper);
 		
 		return accounts;
+		
 	}
 	
-	public boolean createAccount(Account account) {
-	// public void createAccount(Account account) {
+	public boolean createAccount(Account account) throws UsernameTaken {
 		/**
 		 * Creates a new account in the Postgres database.
 		 * Uses a prepared statement to protect against SQL injection attacks.
@@ -265,48 +209,67 @@ public class AccountDao {
 		 * @see Account
 		 */
 		
-		/*
-		String sql = "insert into hotel.accounts "
-				+ "(user_name, pass_word, full_name, full_address, email, phone_number)"
-				+ "values (?, ?, ?, ?, ?, ?);";
-		
-		jdbcTemplate.update(sql, account.getUsername(), account.getPassword(), 
-		account.getFullName(), account.getFullAddress(), 
-		account.getEmail(), account.getPhoneNumber());
-		*/
-		
-		// /*
-		String sql = "insert into hotel.accounts "
-				+ "(user_name, pass_word, full_name, full_address, email, phone_number)"
-				+ "values (?, ?, ?, ?, ?, ?);";
-		
-		PreparedStatement preparedStatement;
-		
-		Connection connection = ConnectionFactoryPostgres.getConnection();
-		
-		log.info("Attempting to create a new account using a prepared statement");
-		
-		try {
-			preparedStatement = connection.prepareStatement(sql);
-			preparedStatement.setString(1, account.getUsername());
-			preparedStatement.setString(2, account.getPassword());
-			preparedStatement.setString(3, account.getFullName());
-			preparedStatement.setString(4, account.getFullAddress());
-			preparedStatement.setString(5, account.getEmail());
-			preparedStatement.setString(6, account.getPhoneNumber());
-			preparedStatement.execute();
-			
-			connection.close();
-			log.info("Successfully created a new account using a prepared statement");
-			return true;
+		if (checkIfUsernameTaken(account.getUsername())) {
+			throw new UsernameTaken();
 		}
-		catch (SQLException e) {
-			log.error("Unable to connect to the database and create a new account using a prepared statement", e);
-			e.printStackTrace();
+		
+		String sql = "insert into accounts "
+				+ "(user_name, pass_word, full_name, full_address, email, phone_number)"
+				+ "values (?, ?, ?, ?, ?, ?);";
+		
+		if (jdbcTemplate.update(sql, account.getUsername(), account.getPassword(), 
+				account.getFullName(), account.getFullAddress(), 
+				account.getEmail(), account.getPhoneNumber()) == 0) {
 			return false;
 		}
-		// */
+		else {
+			return true;
+		}
 		
+	}
+	
+	public boolean updateAccountById(Account account) {
+		log.trace("AccountDao.updateAccount");
+		
+		String sql = "update accounts set "
+				+ "user_name = ?, "
+				+ "pass_word = ?, "
+				+ "full_name = ?, "
+				+ "full_address = ?, "
+				+ "email = ?, "
+				+ "phone_number = ? "
+				+ "where account_id = ?;";
+		
+		if (jdbcTemplate.update(sql, account.getUsername(), account.getPassword(), 
+				account.getFullName(), account.getFullAddress(), 
+				account.getEmail(), account.getPhoneNumber(), account.getUsername()) == 0) {
+			return false;
+		}
+		else {
+			return true;
+		}
+	}
+	
+	public boolean updateAccountByUsername(Account account) {
+		log.trace("AccountDao.updateAccount");
+		
+		String sql = "update accounts set "
+				+ "user_name = ?, "
+				+ "pass_word = ?, "
+				+ "full_name = ?, "
+				+ "full_address = ?, "
+				+ "email = ?, "
+				+ "phone_number = ? "
+				+ "where user_name = ?;";
+		
+		if (jdbcTemplate.update(sql, account.getUsername(), account.getPassword(), 
+				account.getFullName(), account.getFullAddress(), 
+				account.getEmail(), account.getPhoneNumber(), account.getUsername()) == 0) {
+			return false;
+		}
+		else {
+			return true;
+		}
 	}
 	
 	public boolean updateAccount(Account account) {
@@ -319,42 +282,24 @@ public class AccountDao {
 		 * @see Account
 		 */
 		
-		String sql = "update hotel.accounts set "
+		log.trace("AccountDao.updateAccount");
+		
+		String sql = "update accounts set "
 				+ "user_name = ?, "
 				+ "pass_word = ?, "
 				+ "full_name = ?, "
 				+ "full_address = ?, "
 				+ "email = ?, "
 				+ "phone_number = ? "
-				+ "where account_id = ?;";
+				+ "where user_name = ?;";
 		
-		log.info("Attempting to update the account in the database using a prepared statement");
-		
-		Connection connection = ConnectionFactoryPostgres.getConnection();
-		
-		PreparedStatement preparedStatement;
-		
-		try {
-			preparedStatement = connection.prepareStatement(sql);
-			preparedStatement.setString(1, account.getUsername());
-			preparedStatement.setString(2, account.getPassword());
-			preparedStatement.setString(3, account.getFullName());
-			preparedStatement.setString(4, account.getFullAddress());
-			preparedStatement.setString(5, account.getEmail());
-			preparedStatement.setString(6, account.getPhoneNumber());
-			preparedStatement.setInt(7, account.getAccountId());
-			System.out.println(account.getAccountId());
-			preparedStatement.execute();
-			
-			connection.close();
-			
-			log.info("Account successfully updated in the database using a prepared statement");
-			return true;
-		}
-		catch (SQLException e) {
-			log.error("Unable to update the account in the database using a prepared statement", e);
-			e.printStackTrace();
+		if (jdbcTemplate.update(sql, account.getUsername(), account.getPassword(), 
+				account.getFullName(), account.getFullAddress(), 
+				account.getEmail(), account.getPhoneNumber(), account.getUsername()) == 0) {
 			return false;
+		}
+		else {
+			return true;
 		}
 		
 	}
@@ -362,51 +307,29 @@ public class AccountDao {
 	public boolean deleteAccountByUsername(String username) {
 		log.trace("AccountDao.deleteAccountByUsername");
 		
-		Connection connection = ConnectionFactoryPostgres.getConnection();
+		String sql = "delete from accounts where username = ?;";
 		
-		String sql = "delete from hotel.accounts where username = ?;";
-		
-		PreparedStatement preparedStatement;
-		
-		try {
-			preparedStatement = connection.prepareStatement(sql);
-			preparedStatement.setString(1, username);
-			preparedStatement.execute();
-			
-			connection.close();
-			log.info("Successfully deleted the account in the database using a prepared statement");
-			return true;
-		}
-		catch (SQLException e) {
-			log.error("Unable to connect to database to delete account using a prepared statement");
-			e.printStackTrace();
+		if (jdbcTemplate.update(sql, username) == 0) {
 			return false;
 		}
+		else {
+			return true;
+		}
+		
 	}
 	
 	public boolean deleteAccountById(int accountId) {
 		log.trace("AccountDao.deleteAccountById");
 		
-		Connection connection = ConnectionFactoryPostgres.getConnection();
+		String sql = "delete from accounts where account_id = ?;";
 		
-		String sql = "delete from hotel.accounts where account_id = ?;";
-		
-		PreparedStatement preparedStatement;
-		
-		try {
-			preparedStatement = connection.prepareStatement(sql);
-			preparedStatement.setInt(1, accountId);
-			preparedStatement.execute();
-			
-			connection.close();
-			log.info("Successfully deleted the account in the database using a prepared statement");
-			return true;
-		}
-		catch (SQLException e) {
-			log.error("Unable to connect to database to delete account using a prepared statement");
-			e.printStackTrace();
+		if (jdbcTemplate.update(sql, accountId) == 0) {
 			return false;
 		}
+		else {
+			return true;
+		}
+		
 	}
 	
 	public boolean deleteAccount(Account account) {
@@ -424,25 +347,13 @@ public class AccountDao {
 		
 		log.trace("deleteAccount method in AccountDaoPostgres class");
 		
-		Connection connection = ConnectionFactoryPostgres.getConnection();
+		String sql = "delete from accounts where username = ?;";
 		
-		String sql = "delete from hotel.accounts where user_name = ?;";
-		
-		PreparedStatement preparedStatement;
-		
-		try {
-			preparedStatement = connection.prepareStatement(sql);
-			preparedStatement.setString(1, account.getUsername());
-			preparedStatement.execute();
-			
-			connection.close();
-			log.info("Successfully deleted the account in the database using a prepared statement");
-			return true;
-		}
-		catch (SQLException e) {
-			log.error("Unable to connect to database to delete account using a prepared statement");
-			e.printStackTrace();
+		if (jdbcTemplate.update(sql, account.getUsername()) == 0) {
 			return false;
+		}
+		else {
+			return true;
 		}
 
 	}
