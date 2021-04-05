@@ -56,11 +56,15 @@ public class AccountController {
 		}
 	}
 	
-	@PostMapping("/create-account")
+	@PostMapping("/account/create-account")
 	@ResponseBody
 	public String createAccount(@RequestBody Account account) {
-		accountDao.createAccount(account);
-		return "Account successfully created";
+		if (accountDao.createAccount(account)) {
+			return "Account successfully created";
+		}
+		else {
+			return "Unable to create account";
+		}
 		
 		/*try {
 			accountDao.createAccount(account);
@@ -73,7 +77,7 @@ public class AccountController {
 		return "Something happened";*/
 	}
 	
-	@PutMapping(path = "/update-account")
+	@PutMapping(path = "/account/update-account")
 	@ResponseBody
 	public String updateAccount(@RequestBody Account account) {
 		if (accountDao.updateAccount(account)) {
@@ -85,7 +89,31 @@ public class AccountController {
 		
 	}
 	
-	@DeleteMapping("/delete-account")
+	@DeleteMapping("/account/delete-account/{username}")
+	@ResponseBody
+	public String deleteAccount(@PathVariable("username") String username) {
+		
+		if (accountDao.deleteAccountByUsername(username)) {
+			return "Account deleted";
+		}
+		else {
+			return "Account not deleted";	
+		}
+	}
+	
+	@DeleteMapping("/account/delete-account/{accoundId}")
+	@ResponseBody
+	public String deleteAccount(@PathVariable("accountId") int accountId) {
+		
+		if (accountDao.deleteAccountById(accountId)) {
+			return "Account deleted";
+		}
+		else {
+			return "Account not deleted";	
+		}
+	}
+	
+	@DeleteMapping("/account/delete-account")
 	@ResponseBody
 	public String deleteAccount(@RequestBody Account account) {
 		

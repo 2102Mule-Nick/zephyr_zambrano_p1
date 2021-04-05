@@ -359,6 +359,56 @@ public class AccountDao {
 		
 	}
 	
+	public boolean deleteAccountByUsername(String username) {
+		log.trace("AccountDao.deleteAccountByUsername");
+		
+		Connection connection = ConnectionFactoryPostgres.getConnection();
+		
+		String sql = "delete from hotel.accounts where username = ?;";
+		
+		PreparedStatement preparedStatement;
+		
+		try {
+			preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setString(1, username);
+			preparedStatement.execute();
+			
+			connection.close();
+			log.info("Successfully deleted the account in the database using a prepared statement");
+			return true;
+		}
+		catch (SQLException e) {
+			log.error("Unable to connect to database to delete account using a prepared statement");
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	public boolean deleteAccountById(int accountId) {
+		log.trace("AccountDao.deleteAccountById");
+		
+		Connection connection = ConnectionFactoryPostgres.getConnection();
+		
+		String sql = "delete from hotel.accounts where account_id = ?;";
+		
+		PreparedStatement preparedStatement;
+		
+		try {
+			preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setInt(1, accountId);
+			preparedStatement.execute();
+			
+			connection.close();
+			log.info("Successfully deleted the account in the database using a prepared statement");
+			return true;
+		}
+		catch (SQLException e) {
+			log.error("Unable to connect to database to delete account using a prepared statement");
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
 	public boolean deleteAccount(Account account) {
 		/**
 		 * Connects to the Postgres database to delete the account.
@@ -373,7 +423,6 @@ public class AccountDao {
 		// TODO OR make sure user knows if they delete account it will delete ALL their reservations
 		
 		log.trace("deleteAccount method in AccountDaoPostgres class");
-		log.info("Attempting to delete account");
 		
 		Connection connection = ConnectionFactoryPostgres.getConnection();
 		
