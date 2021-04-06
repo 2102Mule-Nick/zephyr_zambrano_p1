@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +17,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.hotel.dao.AccountDao;
 import com.hotel.exception.AccountNotFound;
 import com.hotel.exception.UsernameTaken;
+import com.hotel.messaging.JmsMessageListener;
+import com.hotel.messaging.JmsMessageSender;
 import com.hotel.pojo.Account;
 
 @Controller
@@ -23,9 +26,37 @@ public class AccountController {
 	
 	private AccountDao accountDao;
 	
+	private JmsTemplate jmsTemplate;
+	
+	private JmsMessageListener messageListener;
+	
+	private JmsMessageSender messageSender;
+	
 	@Autowired
 	public void setAccountDao(AccountDao accountDao) {
 		this.accountDao = accountDao;
+	}
+	
+	@Autowired
+	public void setJmsTemplate(JmsTemplate jmsTemplate) {
+		this.jmsTemplate = jmsTemplate;
+	}
+	
+	@Autowired
+	public void setJmsMessageListener(JmsMessageListener messageListener) {
+		this.messageListener = messageListener;
+	}
+	
+	@Autowired
+	public void setJmsMessageSender(JmsMessageSender messageSender) {
+		this.messageSender = messageSender;
+	}
+	
+	@GetMapping("/account")
+	@ResponseBody
+	public List<Account> getAllAccounts() {
+		messageSender.sendToAccountQueue("Account queue works!");
+		return accountDao.getAllAccounts();
 	}
 	
 	@GetMapping("/account/{username}")
@@ -37,12 +68,6 @@ public class AccountController {
 		catch (AccountNotFound e) {
 			return ResponseEntity.notFound().build();
 		}
-	}
-	
-	@GetMapping("/account")
-	@ResponseBody
-	public List<Account> getAllAccounts() {
-		return accountDao.getAllAccounts();
 	}
 	
 	@GetMapping("/account/username-taken/{username}")

@@ -5,12 +5,10 @@ import java.util.Scanner;
 
 import javax.jms.ConnectionFactory;
 import javax.jms.Queue;
-import javax.jms.Topic;
 import javax.sql.DataSource;
 import javax.transaction.TransactionManager;
 
 import org.apache.activemq.command.ActiveMQQueue;
-import org.apache.activemq.command.ActiveMQTopic;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -29,9 +27,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.jta.JtaTransactionManager;
 
 import com.hotel.dao.AccountDao;
-import com.hotel.dao.DateDao;
-import com.hotel.dao.ReservationDao;
-import com.hotel.dao.RoomDao;
 import com.hotel.messaging.JmsMessageListener;
 import com.hotel.messaging.JmsMessageSender;
 
@@ -45,18 +40,13 @@ import bitronix.tm.resource.jms.PoolingConnectionFactory;
 @EnableTransactionManagement
 @Component("config")
 @EnableAspectJAutoProxy
-public class JTAConfig {
+public class AppConfig {
 	
 	// JMS Broker Url
 	public static final String BROKER_URL = "tcp://localhost:61616";
 
 	// JMS Destinations
-	public static final String EXAMPLE_QUEUE = "EXAMPLE_QUEUE";
-	public static final String EXAMPLE_TOPIC = "EXAMPLE_TOPIC";
 	public static final String ACCOUNT_QUEUE = "ACCOUNT_QUEUE";
-	public static final String RESERVATION_QUEUE = "RESERVATION_QUEUE";
-	public static final String ROOM_TOPIC = "ROOM_TOPIC";
-	public static final String DATE_TOPIC = "DATE_TOPIC";
 
 	// DataSource info
 	public static final String DATASOURCE_SCHEMA = System.getenv("HOTEL_DB_SCHEMA");
@@ -101,35 +91,10 @@ public class JTAConfig {
 		connectionFactory.setDriverProperties(props);
 		return connectionFactory;
 	}
-
-	@Bean
-	public Queue destinationQueue() {
-		return new ActiveMQQueue(EXAMPLE_QUEUE);
-	}
-
-	@Bean
-	public Topic destinationTopic() {
-		return new ActiveMQTopic(EXAMPLE_TOPIC);
-	}
 	
 	@Bean
 	public Queue accountQueue() {
 		return new ActiveMQQueue(ACCOUNT_QUEUE);
-	}
-	
-	@Bean
-	public Queue reservationQueue() {
-		return new ActiveMQQueue(RESERVATION_QUEUE);
-	}
-	
-	@Bean
-	public Topic roomTopic() {
-		return new ActiveMQTopic(ROOM_TOPIC);
-	}
-	
-	@Bean
-	public Topic dateTopic() {
-		return new ActiveMQTopic(DATE_TOPIC);
 	}
 
 	@Bean
@@ -145,12 +110,7 @@ public class JTAConfig {
 			JmsMessageListener messageListener) {
 		DefaultMessageListenerContainer container = new DefaultMessageListenerContainer();
 		container.setConnectionFactory(connectionFactory);
-		container.setDestinationName(EXAMPLE_QUEUE);
-		container.setDestinationName(EXAMPLE_TOPIC);
 		container.setDestinationName(ACCOUNT_QUEUE);
-		container.setDestinationName(RESERVATION_QUEUE);
-		container.setDestinationName(ROOM_TOPIC);
-		container.setDestinationName(DATE_TOPIC);
 		container.setPubSubDomain(true);
 
 		container.setMessageListener(messageListener);
@@ -206,49 +166,5 @@ public class JTAConfig {
 	
 	@Autowired
 	private AccountDao accountDao;
-	
-	@Autowired
-	private ReservationDao reservationDao;
-	
-	@Autowired
-	private RoomDao roomDao;
-	
-	@Autowired
-	private DateDao dateDao;
-	
-	/*public static void main(String[] args) throws OutOfStockException {
-		
-		ApplicationContext appContext = new AnnotationConfigApplicationContext(JTAConfig.class);
-		
-		JTAConfig jtaConfig = (JTAConfig) appContext.getBean("config");
-		
-		/*ShoppingCartService scs = (ShoppingCartService) appContext.getBean("shoppingCartServiceImpl");
-		
-		Item item = new Item(110, 5.99f, "water", 100, 0.0f);
-		
-		Cart cart = new Cart(65, new ArrayList<Item>(), 0.0f, new ArrayList<Integer>(), 30);
-		
-		//scs.addItem(item, 5, cart);
-		
-		JTAConfig jtaConfig = (JTAConfig) appContext.getBean("config");
-		
-		jtaConfig.transactionExample(item, 5, cart);
-		
-		System.out.println("transaction successful");
-		
-		// System.out.println("test");
-		
-		
-		
-	}*/
-	
-	/*@Transactional
-	public void transactionExample(Item item, int quantity, Cart cart) {
-		
-		messageSender.sendToInventoryQueue(item, quantity);
-		
-		cartDao.addItemToCart(cart, item, quantity);
-		
-	}*/
 	
 }
