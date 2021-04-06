@@ -1,9 +1,5 @@
 package com.hotel.dao;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -16,7 +12,6 @@ import com.hotel.exception.AccountNotFound;
 import com.hotel.exception.InvalidPassword;
 import com.hotel.exception.UsernameTaken;
 import com.hotel.pojo.Account;
-import com.hotel.util.ConnectionFactoryPostgres;
 
 @Repository
 public class AccountDao {
@@ -52,14 +47,16 @@ public class AccountDao {
 		
 		log.trace("AccountDao.getAccountByUsername");
 		
-		String sql = "select * from hotel.accounts where user_name = ?;";
-		
+		String sql = "select * from accounts where user_name = ?;";
+				
 		List<Account> accounts = jdbcTemplate.query(sql, accountRowMapper, username);
 		
-		if (accounts == null) {
+		if (accounts.size() == 0) {
+			log.info("Username taken");
 			return false;
 		}
 		else {
+			log.info("Username available");
 			return true;
 		}
 		
@@ -76,10 +73,16 @@ public class AccountDao {
 		
 		log.trace("AccountDao.getAccountByUsername");
 		
-		String sql = "select * from hotel.accounts where user_name = ?;";
+		String sql = "select * from accounts where user_name = ?;";
 		
 		List<Account> accounts = jdbcTemplate.query(sql, accountRowMapper, username);
-		return accounts.remove(0);
+		
+		if (accounts.size() == 0) {
+			throw new AccountNotFound();
+		}
+		else {
+			return accounts.get(0);
+		}
 		
 	}
 	
@@ -96,63 +99,29 @@ public class AccountDao {
 		 * @see LoginMenu
 		 */
 		
-		log.info("Attempting to retrieve an existing account from the database");
+		log.trace("AccountDao.getAccountByUsernameAndPassword");
 		
-		Account account = null;
+		String sql = "select * from accounts where user_name = ?;";
 		
-		String sql = "select * from hotel.accounts where user_name = ?;";
+		List<Account> accounts = jdbcTemplate.query(sql, accountRowMapper, username);
 		
-		PreparedStatement preparedStatement;
-		
-		Connection connection = ConnectionFactoryPostgres.getConnection();
-		
-		try {
-			
-			log.info("Successfully connected to the database");
-
-			preparedStatement = connection.prepareStatement(sql);
-			preparedStatement.setString(1, username);
-			ResultSet rs = preparedStatement.executeQuery();
-			
-			connection.close();
-			
-			while (rs.next()) {
-				
-				log.info("Account with matching username found in the database");
-				
-				if (rs.getString("pass_word").equals(password)) {
-					log.info("The given password matches the account's password");
-				}
-				else {
-					log.warn("Invalid password; the given password does not match this account's password");
-					throw new InvalidPassword();
-				}
-				
-				account = new Account();
-				
-				account.setAccountId(rs.getInt("account_id"));
-				account.setUsername(rs.getString("user_name"));
-				account.setPassword(rs.getString("pass_word"));
-				account.setFullName(rs.getString("full_name"));
-				account.setFullAddress(rs.getString("full_address"));
-				account.setEmail(rs.getString("email"));
-				account.setPhoneNumber(rs.getString("phone_number"));
-			
-				connection.close();
-				
-				return account;
-			}
-			
-			log.warn("Account not found; no account with the given username exists");
+		if (accounts.size() == 0) {
+			log.warn("Account not found");
 			throw new AccountNotFound();
-			
 		}
-		catch (SQLException e) { // wrapper for any exception or error state the database would throw (not to be confused with wrapper classes)
-			log.error("Unable to connect to the database", e);
-			e.printStackTrace();
+		else {
+			log.info("Account with matching username found; checking password");
+			
+			if (accounts.get(0).getPassword().equals(password)) {
+				log.info("Password is correct, retrieving account");
+				return accounts.get(0);
+			}
+			else {
+				log.warn("Password is invalid");
+				throw new InvalidPassword();
+			}
 		}
 		
-		return null;
 	}
 	
 	public List<Account> getAllAccounts() {

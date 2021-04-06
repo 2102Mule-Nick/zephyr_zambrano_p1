@@ -12,7 +12,7 @@ import com.hotel.dao.DateDao;
 import com.hotel.pojo.HotelDate;
 
 @Controller
-public class HotelDateController {
+public class DateController {
 	
 	private DateDao dateDao;
 	

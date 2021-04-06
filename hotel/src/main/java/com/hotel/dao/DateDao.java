@@ -45,7 +45,7 @@ public class DateDao {
 		
 		log.trace("DateDao.getDates");
 		
-		String sql = "select * from hotel.dates;";
+		String sql = "select * from dates;";
 		
 		List<HotelDate> hotelDates = jdbcTemplate.query(sql, dateRowMapper);
 		

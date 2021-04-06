@@ -43,7 +43,7 @@ public class RoomDao {
 		
 		log.trace("RoomDao.getRoomTypesAndPrices");
 		
-		String sql = "select * from hotel.rooms;";
+		String sql = "select * from rooms;";
 		
 		List<Room> rooms = jdbcTemplate.query(sql, roomRowMapper);
 		
