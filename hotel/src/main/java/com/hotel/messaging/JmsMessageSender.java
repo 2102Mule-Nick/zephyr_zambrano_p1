@@ -15,49 +15,44 @@ public class JmsMessageSender {
 	
 	private Queue exampleQueue;
 
-	private Topic topic;
+	private Topic exampleTopic;
 	
-	// private Queue inventoryQueue;
+	private Topic roomTopic;
+	
+	@Autowired
+	public void setJmsTemplate(JmsTemplate jmsTemplate) {
+		this.jmsTemplate = jmsTemplate;
+	}
 	
 	@Autowired
 	@Qualifier("destinationQueue")
 	public void setExampleQueue(Queue exampleQueue) {
 		this.exampleQueue = exampleQueue;
 	}
-
-	/*@Autowired
-	public void setInventoryQueue(Queue inventoryQueue) {
-		this.inventoryQueue = inventoryQueue;
-	}*/
-
-	@Autowired
-	public void setJmsTemplate(JmsTemplate jmsTemplate) {
-		this.jmsTemplate = jmsTemplate;
-	}
-	
 	
 	@Autowired
-	public void setTopic(Topic topic) {
-		this.topic = topic;
-	}
-
-	public void simpleSend(String msg) {
-		
-		// jmsTemplate.send(queue, (s) -> s.createTextMessage(msg));
-
-		jmsTemplate.send(topic, (s) -> s.createTextMessage(msg));
-		
+	public void setExampleTopic(Topic exampleTopic) {
+		this.exampleTopic = exampleTopic;
 	}
 	
 	public void sendToQueue(String msg) {
 		jmsTemplate.send(exampleQueue, (s) -> s.createTextMessage(msg));
 	}
 	
-	/*public void sendToInventoryQueue(Item item, int quantity) {
+	public void sendToTopic(String msg) {
 		
-		ItemInventory ii = new ItemInventory(item, quantity);
+		// jmsTemplate.send(queue, (s) -> s.createTextMessage(msg));
+
+		jmsTemplate.send(exampleTopic, (s) -> s.createTextMessage(msg));
 		
-		jmsTemplate.send(inventoryQueue, (s) -> s.createObjectMessage(ii));
-	}*/
+	}
+	
+	public void sendToRoomTopic(String msg) {
+		
+		// jmsTemplate.send(queue, (s) -> s.createTextMessage(msg));
+
+		jmsTemplate.send(roomTopic, (s) -> s.createTextMessage(msg));
+		
+	}
 	
 }

@@ -54,7 +54,7 @@ public class JTAConfig {
 	// JMS Destinations
 	public static final String EXAMPLE_QUEUE = "EXAMPLE_QUEUE";
 	public static final String EXAMPLE_TOPIC = "EXAMPLE_TOPIC";
-	public static final String INVENTORY_QUEUE = "INVENTORY_QUEUE";
+	public static final String ROOM_TOPIC = "ROOM_TOPIC";
 
 	// DataSource info
 	public static final String DATASOURCE_SCHEMA = System.getenv("HOTEL_DB_SCHEMA");
@@ -105,14 +105,14 @@ public class JTAConfig {
 		return new ActiveMQQueue(EXAMPLE_QUEUE);
 	}
 
-	/*@Bean
-	public Queue inventoryQueue() {
-		return new ActiveMQQueue(INVENTORY_QUEUE);
-	}*/
-
 	@Bean
 	public Topic destinationTopic() {
 		return new ActiveMQTopic(EXAMPLE_TOPIC);
+	}
+	
+	@Bean
+	public Topic roomTopic() {
+		return new ActiveMQTopic(ROOM_TOPIC);
 	}
 
 	@Bean
@@ -169,9 +169,6 @@ public class JTAConfig {
 	
 	@Autowired
 	private JmsMessageSender messageSender;
-	
-	/*@Autowired
-	private CartDao cartDao;*/
 	
 	@Autowired
 	private AccountDao accountDao;
