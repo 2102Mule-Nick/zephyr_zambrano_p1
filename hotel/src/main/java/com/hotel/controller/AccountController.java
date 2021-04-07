@@ -32,6 +32,8 @@ public class AccountController {
 	
 	private JmsMessageSender messageSender;
 	
+	private static final String accountUrl = "http://localhost:8080/account";
+	
 	@Autowired
 	public void setAccountDao(AccountDao accountDao) {
 		this.accountDao = accountDao;
@@ -55,7 +57,6 @@ public class AccountController {
 	@GetMapping("/account")
 	@ResponseBody
 	public List<Account> getAllAccounts() {
-		messageSender.sendToAccountQueue("Account queue works!");
 		return accountDao.getAllAccounts();
 	}
 	

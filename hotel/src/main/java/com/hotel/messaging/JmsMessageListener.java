@@ -62,6 +62,16 @@ public class JmsMessageListener implements MessageListener {
 			
 		}
 		
+		if (message instanceof ObjectMessage) {
+			try {
+				String msg = ((TextMessage) message).getText();
+				System.out.println("================MESSAGE RECIEVED: " + msg + "===================");
+			} catch (JMSException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
 	}
 	
 	@JmsListener(destination = JTAConfig.EXAMPLE_QUEUE)
@@ -111,6 +121,10 @@ public class JmsMessageListener implements MessageListener {
 				e.printStackTrace();
 			}
 			
+		}
+		
+		if (message instanceof ObjectMessage) {
+			System.out.println("message sent");
 		}
 	}
 	
