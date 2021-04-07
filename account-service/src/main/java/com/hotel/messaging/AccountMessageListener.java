@@ -17,13 +17,6 @@ import com.hotel.pojo.Account;
 
 @Component
 public class AccountMessageListener implements MessageListener {
-	
-	AccountDao accountDao;
-	
-	@Autowired
-	public void setAccountDao(AccountDao inventoryDao) {
-		this.accountDao = accountDao;
-	}
 
 	@Override
 	public void onMessage(Message message) {
@@ -45,6 +38,8 @@ public class AccountMessageListener implements MessageListener {
 	@JmsListener(destination = AccountAppConfig.ACCOUNT_QUEUE)
 	public void onAccountQueueMessage (Message message) {
 		
+		System.out.println("message received");
+		
 		if (message instanceof TextMessage) {
 			
 			try {
@@ -56,32 +51,6 @@ public class AccountMessageListener implements MessageListener {
 			}
 			
 		}
-		
-		/*System.out.println("Handling Account Message...");
-		
-		if (message instanceof ObjectMessage) {
-			
-			ObjectMessage om = (ObjectMessage)message;
-			
-			try {
-				Account account = (Account)om.getObject();
-				
-				System.out.println(account.toString());
-				System.out.println();
-				
-				try {
-					accountDao.createAccount(account);
-				} catch (UsernameTaken e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-
-			} catch (JMSException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-		}*/
 		
 	}
 	

@@ -10,7 +10,7 @@ import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Service;
 
 import com.hotel.dao.AccountDao;
-import com.hotel.service.AccountService;
+import com.hotel.service.AccountServiceFinder;
 
 @Service
 public class AccountMessageSender {
@@ -21,7 +21,7 @@ public class AccountMessageSender {
 	
 	private AccountDao accountDao;
 	
-	private AccountService accountService;
+	private AccountServiceFinder accountServiceFinder;
 	
 	@Autowired
 	public void setJmsTemplate(JmsTemplate jmsTemplate) {
@@ -40,8 +40,8 @@ public class AccountMessageSender {
 	}
 	
 	@Autowired
-	public void setAccountService(AccountService accountService) {
-		this.accountService = accountService;
+	public void setAccountService(AccountServiceFinder accountServiceFinder) {
+		this.accountServiceFinder = accountServiceFinder;
 	}
 	
 	public void sendToAccountQueue(String msg) {
@@ -54,7 +54,7 @@ public class AccountMessageSender {
 	
 	public void sendAllAccounts(String msg) {
 		
-		jmsTemplate.send(accountQueue, session -> session.createObjectMessage((Serializable) accountService.getAllAccounts()));
+		jmsTemplate.send(accountQueue, session -> session.createObjectMessage((Serializable) accountServiceFinder.getAllAccounts()));
 	}
 	
 }

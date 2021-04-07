@@ -133,7 +133,77 @@ public class Reservation {
 		this.checkOutTime = checkOutTime;
 		this.reservationPrice = reservationPrice;
 	}
-	
-	
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + accountId;
+		result = prime * result + ((checkInTime == null) ? 0 : checkInTime.hashCode());
+		result = prime * result + ((checkOutTime == null) ? 0 : checkOutTime.hashCode());
+		result = prime * result + numberOfNights;
+		result = prime * result + ((reservationEndDate == null) ? 0 : reservationEndDate.hashCode());
+		result = prime * result + reservationId;
+		result = prime * result + reservationPrice;
+		result = prime * result + ((reservationStartDate == null) ? 0 : reservationStartDate.hashCode());
+		result = prime * result + roomPrice;
+		result = prime * result + ((roomType == null) ? 0 : roomType.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Reservation other = (Reservation) obj;
+		if (accountId != other.accountId)
+			return false;
+		if (checkInTime == null) {
+			if (other.checkInTime != null)
+				return false;
+		} else if (!checkInTime.equals(other.checkInTime))
+			return false;
+		if (checkOutTime == null) {
+			if (other.checkOutTime != null)
+				return false;
+		} else if (!checkOutTime.equals(other.checkOutTime))
+			return false;
+		if (numberOfNights != other.numberOfNights)
+			return false;
+		if (reservationEndDate == null) {
+			if (other.reservationEndDate != null)
+				return false;
+		} else if (!reservationEndDate.equals(other.reservationEndDate))
+			return false;
+		if (reservationId != other.reservationId)
+			return false;
+		if (reservationPrice != other.reservationPrice)
+			return false;
+		if (reservationStartDate == null) {
+			if (other.reservationStartDate != null)
+				return false;
+		} else if (!reservationStartDate.equals(other.reservationStartDate))
+			return false;
+		if (roomPrice != other.roomPrice)
+			return false;
+		if (roomType == null) {
+			if (other.roomType != null)
+				return false;
+		} else if (!roomType.equals(other.roomType))
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "Reservation [reservationId=" + reservationId + ", accountId=" + accountId + ", reservationStartDate="
+				+ reservationStartDate + ", reservationEndDate=" + reservationEndDate + ", checkInTime=" + checkInTime
+				+ ", checkOutTime=" + checkOutTime + ", roomType=" + roomType + ", roomPrice=" + roomPrice
+				+ ", numberOfNights=" + numberOfNights + ", reservationPrice=" + reservationPrice + "]";
+	}
 	
 }

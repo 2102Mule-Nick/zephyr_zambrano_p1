@@ -20,6 +20,7 @@ import com.hotel.exception.UsernameTaken;
 import com.hotel.messaging.JmsMessageListener;
 import com.hotel.messaging.JmsMessageSender;
 import com.hotel.pojo.Account;
+import com.hotel.service.AccountService;
 
 @Controller
 public class AccountController {
@@ -31,6 +32,13 @@ public class AccountController {
 	private JmsMessageListener messageListener;
 	
 	private JmsMessageSender messageSender;
+	
+	AccountService accountService;
+	
+	@Autowired
+	public void setFlashCardService(AccountService accountService) {
+		this.accountService = accountService;
+	}
 	
 	private static final String accountUrl = "http://localhost:8080/account";
 	
@@ -57,7 +65,14 @@ public class AccountController {
 	@GetMapping("/account")
 	@ResponseBody
 	public List<Account> getAllAccounts() {
-		return accountDao.getAllAccounts();
+		// return accountDao.getAllAccounts();
+		return accountService.getAllAccounts();
+	}
+	
+	@GetMapping("/account/number")
+	@ResponseBody
+	public int getNumberOfAccounts() {
+		return accountService.getNumberOfAccounts();
 	}
 	
 	@GetMapping("/account/{username}")

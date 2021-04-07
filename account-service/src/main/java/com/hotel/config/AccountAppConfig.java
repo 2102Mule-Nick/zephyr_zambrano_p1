@@ -161,45 +161,4 @@ public class AccountAppConfig {
 		return Logger.getRootLogger();
 	}
 	
-	@Autowired
-	private AccountMessageSender messageSender;
-	
-	@Autowired
-	private AccountDao accountDao;
-	
-	/*public static void main(String[] args) throws OutOfStockException {
-		
-		ApplicationContext appContext = new AnnotationConfigApplicationContext(JTAConfig.class);
-		
-		JTAConfig jtaConfig = (JTAConfig) appContext.getBean("config");
-		
-		/*ShoppingCartService scs = (ShoppingCartService) appContext.getBean("shoppingCartServiceImpl");
-		
-		Item item = new Item(110, 5.99f, "water", 100, 0.0f);
-		
-		Cart cart = new Cart(65, new ArrayList<Item>(), 0.0f, new ArrayList<Integer>(), 30);
-		
-		//scs.addItem(item, 5, cart);
-		
-		JTAConfig jtaConfig = (JTAConfig) appContext.getBean("config");
-		
-		jtaConfig.transactionExample(item, 5, cart);
-		
-		System.out.println("transaction successful");
-		
-		// System.out.println("test");
-		
-		
-		
-	}*/
-	
-	/*@Transactional
-	public void transactionExample(Item item, int quantity, Cart cart) {
-		
-		messageSender.sendToInventoryQueue(item, quantity);
-		
-		cartDao.addItemToCart(cart, item, quantity);
-		
-	}*/
-	
 }

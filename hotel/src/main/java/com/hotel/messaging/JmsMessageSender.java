@@ -1,5 +1,7 @@
 package com.hotel.messaging;
 
+import java.util.List;
+
 import javax.jms.Queue;
 import javax.jms.Topic;
 
@@ -7,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Service;
+
+import com.hotel.pojo.Account;
 
 @Service
 public class JmsMessageSender {
@@ -75,7 +79,13 @@ public class JmsMessageSender {
 	}
 	
 	public void sendToAccountQueue(String msg) {
-		// jmsTemplate.send(accountQueue, (s) -> s.createTextMessage(msg));
+		jmsTemplate.send(accountQueue, (s) -> s.createTextMessage(msg));
+	}
+	
+	public void sendToAccountQueue(List<Account> accounts) {
+		for (Account account : accounts) {
+			jmsTemplate.send(accountQueue, (s) -> s.createObjectMessage(account));
+		}
 	}
 	
 	public void sendToAccountQueue(String username, String password, String fullName, String fullAddress, String email, String phoneNumber) {

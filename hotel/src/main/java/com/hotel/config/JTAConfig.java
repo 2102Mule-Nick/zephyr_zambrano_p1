@@ -12,6 +12,7 @@ import javax.transaction.TransactionManager;
 import org.apache.activemq.command.ActiveMQQueue;
 import org.apache.activemq.command.ActiveMQTopic;
 import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -198,7 +199,10 @@ public class JTAConfig {
 
 	@Bean
 	public Logger log() {
-		return Logger.getRootLogger();
+		PropertyConfigurator.configure(getClass().getClassLoader().getResourceAsStream("/log4j.properties"));
+		// PropertyConfigurator.configure("log4j.properties");
+		Logger log = Logger.getRootLogger();
+		return log;
 	}
 	
 	@Autowired
@@ -215,40 +219,5 @@ public class JTAConfig {
 	
 	@Autowired
 	private DateDao dateDao;
-	
-	/*public static void main(String[] args) throws OutOfStockException {
-		
-		ApplicationContext appContext = new AnnotationConfigApplicationContext(JTAConfig.class);
-		
-		JTAConfig jtaConfig = (JTAConfig) appContext.getBean("config");
-		
-		/*ShoppingCartService scs = (ShoppingCartService) appContext.getBean("shoppingCartServiceImpl");
-		
-		Item item = new Item(110, 5.99f, "water", 100, 0.0f);
-		
-		Cart cart = new Cart(65, new ArrayList<Item>(), 0.0f, new ArrayList<Integer>(), 30);
-		
-		//scs.addItem(item, 5, cart);
-		
-		JTAConfig jtaConfig = (JTAConfig) appContext.getBean("config");
-		
-		jtaConfig.transactionExample(item, 5, cart);
-		
-		System.out.println("transaction successful");
-		
-		// System.out.println("test");
-		
-		
-		
-	}*/
-	
-	/*@Transactional
-	public void transactionExample(Item item, int quantity, Cart cart) {
-		
-		messageSender.sendToInventoryQueue(item, quantity);
-		
-		cartDao.addItemToCart(cart, item, quantity);
-		
-	}*/
 	
 }
