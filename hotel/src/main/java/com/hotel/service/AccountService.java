@@ -34,7 +34,7 @@ public class AccountService {
 		
 		List<Account> accounts = accountDao.getAllAccounts();
 		
-		// messageSender.sendToAccountQueue(accounts.size() + " accounts accessed");
+		messageSender.sendToAccountQueue(accounts.size() + " accounts accessed");
 		
 		messageSender.sendToAccountQueue(accounts);
 		
@@ -53,6 +53,11 @@ public class AccountService {
 		
 		return numberOfAccounts;
 		
+	}
+	
+	@Transactional
+	public void testTransaction() {
+		System.out.println("transaction successful");
 	}
 	
 }

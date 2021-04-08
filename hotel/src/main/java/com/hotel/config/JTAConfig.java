@@ -175,6 +175,7 @@ public class JTAConfig {
 		bitronix.tm.Configuration config = TransactionManagerServices.getConfiguration();
 		config.setDisableJmx(true);
 		config.setServerId("spring-btm");
+		config.setDefaultTransactionTimeout(300);
 		return config;
 	}
 
@@ -199,10 +200,11 @@ public class JTAConfig {
 
 	@Bean
 	public Logger log() {
-		PropertyConfigurator.configure(getClass().getClassLoader().getResourceAsStream("/log4j.properties"));
+		// PropertyConfigurator.configure(getClass().getClassLoader().getResourceAsStream("/log4j.properties"));
 		// PropertyConfigurator.configure("log4j.properties");
-		Logger log = Logger.getRootLogger();
-		return log;
+		// Logger log = Logger.getRootLogger();
+		// return log;
+		return Logger.getRootLogger();
 	}
 	
 	@Autowired

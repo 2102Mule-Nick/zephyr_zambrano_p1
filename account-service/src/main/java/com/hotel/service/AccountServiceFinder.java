@@ -21,6 +21,8 @@ public class AccountServiceFinder {
 		
 		ResponseEntity<List<Account>> accountList = restTemplate.exchange
 				(accountUrl, HttpMethod.GET, null, new ParameterizedTypeReference <List<Account>> () {});
+		
+		System.out.println(accountList.getBody());
 				
 		return accountList.getBody();
 		
@@ -38,6 +40,8 @@ public class AccountServiceFinder {
 		RestTemplate restTemplate = new RestTemplate();
 		
 		String response = restTemplate.getForObject(accountUrl + "/number", String.class);
+		
+		System.out.println(response);
 		
 		return response;
 		

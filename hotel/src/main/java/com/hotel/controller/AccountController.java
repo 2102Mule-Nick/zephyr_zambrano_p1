@@ -65,6 +65,7 @@ public class AccountController {
 	@GetMapping("/account")
 	@ResponseBody
 	public List<Account> getAllAccounts() {
+		// accountService.testTransaction();
 		// return accountDao.getAllAccounts();
 		return accountService.getAllAccounts();
 	}
