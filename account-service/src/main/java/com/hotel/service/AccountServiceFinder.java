@@ -15,16 +15,22 @@ public class AccountServiceFinder {
 	
 	private static final String accountUrl = "http://localhost:8080/hotel/account";
 	
-	public List<Account> getAllAccounts() {
+	// public List<Account> getAllAccounts() {
+	public Account getAccount() {
 		
 		RestTemplate restTemplate = new RestTemplate();
 		
-		ResponseEntity<List<Account>> accountList = restTemplate.exchange
+		/*ResponseEntity<List<Account>> accountList = restTemplate.exchange
 				(accountUrl, HttpMethod.GET, null, new ParameterizedTypeReference <List<Account>> () {});
 		
 		System.out.println(accountList.getBody());
 				
-		return accountList.getBody();
+		return accountList.getBody();*/
+		
+		ResponseEntity<Account> account = restTemplate.exchange
+				(accountUrl, HttpMethod.GET, null, new ParameterizedTypeReference <Account> () {});
+		
+		return account.getBody();
 		
 		/*Account[] accounts = restTemplate.getForObject(accountUrl, Account[].class);
 		

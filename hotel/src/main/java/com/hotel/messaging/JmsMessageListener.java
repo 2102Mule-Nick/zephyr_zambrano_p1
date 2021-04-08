@@ -74,40 +74,6 @@ public class JmsMessageListener implements MessageListener {
 		
 	}
 	
-	@JmsListener(destination = JTAConfig.EXAMPLE_QUEUE)
-	public void onExampleQueueMessage (Message message) {
-		
-		if (message instanceof TextMessage) {
-			
-			try {
-				String text = ((TextMessage)message).getText();
-				System.out.println("Example queue message: " + text);
-			} catch (JMSException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-		}
-	}
-	
-	@JmsListener(destination = JTAConfig.EXAMPLE_TOPIC)
-	public void onExampleTopicMessage(Message message) {
-		
-		if (message instanceof ObjectMessage) {
-			
-			ObjectMessage om = (ObjectMessage)message;
-			try {
-				String text = ((TextMessage)message).getText();
-				System.out.println("Example topic message: " + text);
-			} catch (JMSException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-		}
-		
-	}
-	
 	@JmsListener(destination = JTAConfig.ACCOUNT_QUEUE)
 	public void onAccountQueueMessage (Message message) {
 		

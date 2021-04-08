@@ -17,10 +17,6 @@ public class JmsMessageSender {
 
 	private JmsTemplate jmsTemplate;
 	
-	private Queue exampleQueue;
-
-	private Topic exampleTopic;
-	
 	private Queue accountQueue;
 	
 	private Queue reservationQueue;
@@ -32,18 +28,6 @@ public class JmsMessageSender {
 	@Autowired
 	public void setJmsTemplate(JmsTemplate jmsTemplate) {
 		this.jmsTemplate = jmsTemplate;
-	}
-	
-	@Autowired
-	@Qualifier("destinationQueue")
-	public void setExampleQueue(Queue exampleQueue) {
-		this.exampleQueue = exampleQueue;
-	}
-	
-	@Autowired
-	@Qualifier("destinationTopic")
-	public void setExampleTopic(Topic exampleTopic) {
-		this.exampleTopic = exampleTopic;
 	}
 	
 	@Autowired
@@ -68,14 +52,6 @@ public class JmsMessageSender {
 	@Qualifier("dateTopic")
 	public void setDateTopic(Topic dateTopic) {
 		this.dateTopic = dateTopic;
-	}
-	
-	public void sendToQueue(String msg) {
-		jmsTemplate.send(exampleQueue, (s) -> s.createTextMessage(msg));
-	}
-	
-	public void sendToTopic(String msg) {
-		jmsTemplate.send(exampleTopic, (s) -> s.createTextMessage(msg));
 	}
 	
 	public void sendToAccountQueue(String msg) {

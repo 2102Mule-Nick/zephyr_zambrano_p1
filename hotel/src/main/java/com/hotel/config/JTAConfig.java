@@ -52,8 +52,6 @@ public class JTAConfig {
 	public static final String BROKER_URL = "tcp://localhost:61616";
 
 	// JMS Destinations
-	public static final String EXAMPLE_QUEUE = "EXAMPLE_QUEUE";
-	public static final String EXAMPLE_TOPIC = "EXAMPLE_TOPIC";
 	public static final String ACCOUNT_QUEUE = "ACCOUNT_QUEUE";
 	public static final String RESERVATION_QUEUE = "RESERVATION_QUEUE";
 	public static final String ROOM_TOPIC = "ROOM_TOPIC";
@@ -102,16 +100,6 @@ public class JTAConfig {
 		connectionFactory.setDriverProperties(props);
 		return connectionFactory;
 	}
-
-	@Bean
-	public Queue destinationQueue() {
-		return new ActiveMQQueue(EXAMPLE_QUEUE);
-	}
-
-	@Bean
-	public Topic destinationTopic() {
-		return new ActiveMQTopic(EXAMPLE_TOPIC);
-	}
 	
 	@Bean
 	public Queue accountQueue() {
@@ -146,8 +134,6 @@ public class JTAConfig {
 			JmsMessageListener messageListener) {
 		DefaultMessageListenerContainer container = new DefaultMessageListenerContainer();
 		container.setConnectionFactory(connectionFactory);
-		container.setDestinationName(EXAMPLE_QUEUE);
-		container.setDestinationName(EXAMPLE_TOPIC);
 		container.setDestinationName(ACCOUNT_QUEUE);
 		container.setDestinationName(RESERVATION_QUEUE);
 		container.setDestinationName(ROOM_TOPIC);

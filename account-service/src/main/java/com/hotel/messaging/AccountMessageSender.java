@@ -54,7 +54,7 @@ public class AccountMessageSender {
 	
 	public void sendAllAccounts(String msg) {
 		
-		jmsTemplate.send(accountQueue, session -> session.createObjectMessage((Serializable) accountServiceFinder.getAllAccounts()));
+		// jmsTemplate.send(accountQueue, session -> session.createObjectMessage((Serializable) accountServiceFinder.getAllAccounts()));
 	}
 	
 }
