@@ -2,13 +2,15 @@ package com.hotel.ws;
 
 import java.util.List;
 
+import javax.jws.WebService;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import com.hotel.dao.RoomDao;
 import com.hotel.pojo.Room;
 
-@Service
+@WebService(endpointInterface = "com.hotel.ws.RoomService",
+serviceName="roomService")
 public class RoomServiceImpl implements RoomService {
 	
 	private RoomDao roomDao;

@@ -135,9 +135,9 @@ public class JTAConfig {
 		DefaultMessageListenerContainer container = new DefaultMessageListenerContainer();
 		container.setConnectionFactory(connectionFactory);
 		container.setDestinationName(ACCOUNT_QUEUE);
-		container.setDestinationName(RESERVATION_QUEUE);
-		container.setDestinationName(ROOM_TOPIC);
-		container.setDestinationName(DATE_TOPIC);
+		// container.setDestinationName(RESERVATION_QUEUE);
+		// container.setDestinationName(ROOM_TOPIC);
+		// container.setDestinationName(DATE_TOPIC);
 		container.setPubSubDomain(true);
 
 		container.setMessageListener(messageListener);
@@ -193,7 +193,7 @@ public class JTAConfig {
 		return Logger.getRootLogger();
 	}
 	
-	@Autowired
+	/*@Autowired
 	private JmsMessageSender messageSender;
 	
 	@Autowired
@@ -206,6 +206,6 @@ public class JTAConfig {
 	private RoomDao roomDao;
 	
 	@Autowired
-	private DateDao dateDao;
+	private DateDao dateDao;*/
 	
 }
