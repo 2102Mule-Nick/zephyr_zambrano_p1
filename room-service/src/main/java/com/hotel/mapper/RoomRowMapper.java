@@ -19,7 +19,7 @@ public class RoomRowMapper implements RowMapper<Room> {
 		this.roomExtractor = roomExtractor;
 	}
 	
-	// @Override
+	@Override
 	public Room mapRow(ResultSet rs, int rowNum) throws SQLException {
 		return roomExtractor.extractData(rs);
 	}

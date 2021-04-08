@@ -18,7 +18,7 @@ public class RoomServiceImpl implements RoomService {
 		this.roomDao = roomDao;
 	}
 
-	// @Override
+	@Override
 	public List<Room> getAllRooms() {
 		List<Room> rooms = roomDao.getRoomTypesAndPrices();
 		return rooms;

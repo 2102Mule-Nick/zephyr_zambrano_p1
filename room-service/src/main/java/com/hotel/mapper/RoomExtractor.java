@@ -12,7 +12,7 @@ import com.hotel.pojo.Room;
 @Component
 public class RoomExtractor implements ResultSetExtractor<Room> {
 
-	// @Override
+	@Override
 	public Room extractData(ResultSet rs) throws SQLException, DataAccessException {
 		
 		Room room = new Room();
