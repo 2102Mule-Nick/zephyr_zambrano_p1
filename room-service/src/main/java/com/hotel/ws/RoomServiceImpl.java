@@ -22,8 +22,6 @@ public class RoomServiceImpl implements RoomService {
 	public List<Room> getAllRooms() {
 		List<Room> rooms = roomDao.getRoomTypesAndPrices();
 		return rooms;
-	}
-	
-	
+	}	
 	
 }

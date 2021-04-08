@@ -13,9 +13,15 @@
 	<!-- <bean class="org.springframework.config.java.process.ConfigurationPostProcessor"/> -->
 
 	<import resource="classpath:META-INF/cxf/cxf.xml" />
+	
+	<jaxws:endpoint id="messageGenService"
+		implementor="com.hotel.ws.MessageGenImpl"
+		address="/message">
+	</jaxws:endpoint>
 
 	<jaxws:endpoint id="roomService"
 		implementor="com.hotel.ws.RoomServiceImpl"
-		address="/roomservice"></jaxws:endpoint>
+		address="/rooms">
+	</jaxws:endpoint>
 
 </beans>
