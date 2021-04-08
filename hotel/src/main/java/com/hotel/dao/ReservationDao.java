@@ -36,7 +36,6 @@ public class ReservationDao {
 	}
 	
 	public Reservation getReservationById(int reservationId) throws ReservationNotFound {
-		// TODO implement
 		/**
 		 * 
 		 * 
@@ -44,7 +43,7 @@ public class ReservationDao {
 		
 		log.trace("ReservationDao.getReservationById");
 		
-		String sql = "select * from hotel.reservations where reservation_id = ?;";
+		String sql = "select * from reservations where reservation_id = ?;";
 		
 		List<Reservation> reservations = jdbcTemplate.query(sql, reservationRowMapper, reservationId);
 
@@ -57,8 +56,7 @@ public class ReservationDao {
 		
 	}
 	
-	public List<Reservation> getAllReservationsForASpecificAccount(String username) {
-		// TODO implement
+	public List<Reservation> getAllReservationsForASpecificAccount(int accountId) {
 		/**
 		 * 
 		 * 
@@ -66,12 +64,22 @@ public class ReservationDao {
 		
 		log.trace("ReservationDao.getAllReservationsForASpecificAccount");
 		
-		String sql = "select * from hotel.reservations where user_name = ?;";
+		String sql = "select * from reservations where account_id = ?;";
 		
-		List<Reservation> reservations = jdbcTemplate.query(sql, reservationRowMapper, username);
+		List<Reservation> reservations = jdbcTemplate.query(sql, reservationRowMapper, accountId);
 		
 		return reservations;
 		
+	}
+	
+	public List<Reservation> getAllReservations() {
+		log.trace("ReservationDao.getAllReservations");
+		
+		String sql = "select * from reservations;";
+		
+		List<Reservation> reservations = jdbcTemplate.query(sql, reservationRowMapper);
+		
+		return reservations;
 	}
 	
 	public boolean createReservation(Reservation reservation) {
@@ -82,7 +90,7 @@ public class ReservationDao {
 		
 		log.trace("ReservationDao.createReservation");
 		
-		String sql = "insert into hotel.reservations "
+		String sql = "insert into reservations "
 				+ "(account_id, reservation_start_date, reservation_end_date, check_in_time, "
 				+ "check_out_time, room_type, room_price, number_of_nights, reservation_price) "
 				+ "values (?, ?, ?, ?, ?, ?, ?, ?, ?);";
@@ -138,7 +146,7 @@ public class ReservationDao {
 		
 		log.trace("ReservationDao.deleteReservation");
 		
-		String sql = "delete from hotel.reservations where reservation_id = ?;";
+		String sql = "delete from reservations where reservation_id = ?;";
 		
 		if (jdbcTemplate.update(sql, reservation.getReservationId()) == 0) {
 			return false;
@@ -149,21 +157,19 @@ public class ReservationDao {
 		
 	}
 	
-	public boolean deleteAllReservationsForASpecificAccount(Account account) {
+	public boolean deleteAllReservationsForASpecificAccount(int accountId) {
 		// if user deletes account but they still have reservations booked
 		// or if the user just wants to cancel all their reservations
 		/**
 		 * 
 		 */
 		
-		// TODO decide if i will be using accountId or username
-		
 		log.trace("ReservationDao.deleteAllReservations");
 		log.info("Attempting to delete all reservations for the current account");
 		
-		String sql = "delete from accounts where account_id = ?;";
+		String sql = "delete from reservations where account_id = ?;";
 		
-		if (jdbcTemplate.update(sql, account.getAccountId()) == 0) {
+		if (jdbcTemplate.update(sql, accountId) == 0) {
 			return false;
 		}
 		else {

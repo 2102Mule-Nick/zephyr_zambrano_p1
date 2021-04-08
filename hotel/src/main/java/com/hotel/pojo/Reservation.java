@@ -9,6 +9,8 @@ public class Reservation {
 
 	private int accountId;  // id of the account making the reservation
 	
+	private String username; // username of the account making the reservation
+	
 	private Date reservationStartDate; // user checks into hotel on this day
 	
 	private Date reservationEndDate; // user checks out of hotel on this day
@@ -39,6 +41,14 @@ public class Reservation {
 
 	public void setAccountId(int accountId) {
 		this.accountId = accountId;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public Date getReservationStartDate() {
