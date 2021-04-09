@@ -243,7 +243,7 @@ public class AccountDao {
 	public boolean deleteAccountByUsername(String username) {
 		log.trace("AccountDao.deleteAccountByUsername");
 		
-		String sql = "delete from accounts where username = ?;";
+		String sql = "delete from accounts where user_name = ?;";
 		
 		if (jdbcTemplate.update(sql, username) == 0) {
 			return false;
@@ -283,7 +283,7 @@ public class AccountDao {
 		
 		log.trace("deleteAccount method in AccountDaoPostgres class");
 		
-		String sql = "delete from accounts where username = ?;";
+		String sql = "delete from accounts where user_name = ?;";
 		
 		if (jdbcTemplate.update(sql, account.getUsername()) == 0) {
 			return false;

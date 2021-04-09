@@ -145,7 +145,7 @@ public class AccountController {
 		}
 	}
 	
-	@DeleteMapping("/account/delete-account/{accoundId}")
+	/*@DeleteMapping("/account/delete-account/{accoundId}")
 	@ResponseBody
 	public String deleteAccount(@PathVariable("accountId") int accountId) {
 		
@@ -155,7 +155,7 @@ public class AccountController {
 		else {
 			return "Unable to delete account";	
 		}
-	}
+	}*/
 	
 	@DeleteMapping("/account/delete-account")
 	@ResponseBody
