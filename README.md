@@ -20,14 +20,21 @@ The Hotel Booking API is a system for booking hotel reservations. The applicatio
 
 ## Features
 
-List of features ready and TODOs for future development
-* REST: This application contains a fully functional publicly-facing REST API. Users can submit GET, PUT, POST, and DELETE requests (see the package titled "com.hotel.controller" in the project titled "hotel"). The publicly-facing REST API connects to the PostgreSQL database using JDBC.
+Technologies
+* REST: This application contains a fully functional publicly-facing REST API. Users can submit GET, PUT, POST, and DELETE requests (see the classes inside the package titled "com.hotel.controller" in the project titled "hotel" for all possible requests). The publicly-facing REST API connects to the PostgreSQL database using JDBC.
 * JDBC: This application uses JDBC to connect to the database and create, read, update, and delete data from the database.
 * Logging: This application uses Log4J in the Dao classes to log all database interactions.
 
+Features
+* Accounts: Users can create, view, update, and delete accounts. Users can also check if a specific username is available.
+* Reservations: Users can create and view their reservations. The hotel can view all reservations.
+* Rooms: Users can view all of the types of available hotel rooms as well as their prices.
+* Dates: Users can view all available dates to reserve a room at the hotel, as well as check-in and check-out times.
+
 To-do list:
-* Spring Transactions & JMS: transactions involving JMS timeout and rollback, but in the future I would like to fix this
-* SOAP: right now the SOAP client does not run properly, but in the future this is something I would like to implement
+* More Reservation functionality (update and delete reservations): Did not have time to implement these, but I would like to implement them in the future
+* Spring Transactions & JMS: Rransactions involving JMS timeout and rollback, but in the future I would like to fix this
+* SOAP: Right now the SOAP client does not run properly, but in the future this is something I would like to implement
 
 ## Getting Started
 
